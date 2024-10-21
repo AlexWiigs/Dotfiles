@@ -4,11 +4,11 @@ return {
     "williamboman/mason-lspconfig.nvim",
   },
   config = function()
-    -- import mason
+    -- import mason and mason-lspconfig
     local mason = require("mason")
-
-    -- import mason-lspconfig
     local mason_lspconfig = require("mason-lspconfig")
+    local lspconfig = require("lspconfig")
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     -- enable mason and configure icons
     mason.setup({
@@ -21,8 +21,8 @@ return {
       },
     })
 
+    -- configure mason-lspconfig
     mason_lspconfig.setup({
-      -- list of servers for mason to install
       ensure_installed = {
         "texlab",
         "ltex",
@@ -39,11 +39,9 @@ return {
       },
     })
     
-    -- import lspconfig for LSP server configurations
-    local lspconfig = require("lspconfig")
-
     -- Set up texlab for LaTeX
     lspconfig.texlab.setup({
+      capabilities = capabilities,
       settings = {
         texlab = {
           auxDirectory = ".",
@@ -51,10 +49,10 @@ return {
           build = {
             executable = "latexmk",
             args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-            onSave = true, -- Build on save
+            onSave = true,
           },
           forwardSearch = {
-            executable = "skim", -- Example: replace with your PDF viewer
+            executable = "skim", -- Update with the correct path if necessary
             args = { "--synctex-forward", "%l:1:%f", "%p" },
           },
           chktex = {
@@ -67,24 +65,23 @@ return {
 
     -- Set up ltex-ls for grammar and spell checking
     lspconfig.ltex.setup({
+      capabilities = capabilities,
       settings = {
         ltex = {
-          language = "en", -- Set your preferred language
+          language = "en",
         },
       },
     })
 
-    -- Additional LSP configurations can go here for other servers like pyright, lua_ls, etc.
-    -- Example: Pyright for Python
-    lspconfig.pyright.setup({})
-    
-    local lspconfig = require('lspconfig')
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- Set up pyright for Python
+    lspconfig.pyright.setup({
+      capabilities = capabilities,
+    })
 
-    lspconfig.r_language_server.setup {
+    -- Set up r_language_server for R and Quarto files
+    lspconfig.r_language_server.setup({
       capabilities = capabilities,
       filetypes = { "r", "quarto" }, -- Ensure it works with Quarto files
-    }
-
+    })
   end,
 }

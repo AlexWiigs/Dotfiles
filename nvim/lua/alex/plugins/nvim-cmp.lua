@@ -1,5 +1,3 @@
--- 
-
 return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
@@ -46,14 +44,15 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = false }), -- confirm selection
       }),
        
-      -- sources for autocompletion
+      -- Global sources for autocompletion
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-      }, {
-        { name = "buffer" },
-        { name = "path" },
+        { name = "luasnip" },    -- Snippets first
+        { name = "nvim_lsp" },   -- LSP for code completions
+        { name = "path" },       -- File system paths
+        { name = "latex_symbols" }, -- LaTeX symbols (if needed)
+        { name = "nvim_lua" },   -- Lua completions for Neovim config (if relevant)
       }),
+
       formatting = {
         format = lspkind.cmp_format({
           maxwidth = 50,
@@ -61,26 +60,5 @@ return {
         }),
       },
     })
-
-    -- Filetype-specific setup
-    cmp.setup.filetype('tex', {
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-      }, {
-        { name = 'buffer' },
-      }),
-    })
-
-    cmp.setup.filetype('quarto', {
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'buffer' },
-        { name = 'path' },
-      }),
-
-    })
   end,
 }
-
