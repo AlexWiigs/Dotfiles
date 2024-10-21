@@ -11,7 +11,7 @@ return{
     'sainnhe/everforest',
     config = function()
         vim.g.everforest_background = 'soft' -- options: hard, medium, soft
-        vim.g.everforest_transparent_background = 1
+        vim.g.everforest_transparent_background = 0
         vim.cmd('colorscheme everforest')
     end
 
