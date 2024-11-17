@@ -1,5 +1,6 @@
 -- set leader key to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local keymap = vim.keymap -- for conciseness
 
@@ -31,10 +32,6 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
 
--- LuaSnip
--- require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
-
-
 vim.cmd[[
 " Use Tab to expand and jump through snippets
 imap <silent><expr> jk luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
@@ -51,5 +48,29 @@ vim.keymap.set("n", "e", "E", { noremap = true, silent = true, desc = "Move to e
 -- Remap "b" to act like "B"
 vim.keymap.set("n", "b", "B", { noremap = true, silent = true, desc = "Move to beginning of word (inclusive)" })
 
+-- Molten Commands
 
+-- Create an autocmd for Quarto files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "quarto",  -- Only apply to Quarto filetypes
+    callback = function()
+        local opts = { noremap = true, silent = true }  -- Common options
+
+        -- Normal mode keymaps
+
+        vim.keymap.set("n", "<leader>qq", ":QuartoPreview<CR>", opts)
+        vim.keymap.set("n", "<leader>qc", ":QuartoClosePreview<CR>", opts)
+        vim.keymap.set("n", "<leader>mi", ":MoltenInit<CR>", opts)
+        vim.keymap.set("n", "<leader>ml", ":MoltenEvaluateLine<CR>", opts)
+        vim.keymap.set("n", "<leader>mc", ":MoltenReevaluateCell<CR>", opts)
+        vim.keymap.set("n", "<leader>md", ":MoltenDeleteCell<CR>", opts)
+        vim.keymap.set("n", "<leader>md", ":MoltenDeinit<CR>", opts)
+
+        vim.keymap.set("n", "<leader>oo", ":noautocmd MoltenEnterOutput<CR>", opts)
+        vim.keymap.set("v", "<leader>e", ":<C-U>MoltenEvaluateVisual<CR>", opts)
+        vim.keymap.set("n", "<leader>on", ":MoltenNext<CR>", opts)
+        vim.keymap.set("n", "<leader>op", ":MoltenPrev<CR>", opts)
+        vim.keymap.set("n", "<leader>mh", ":MoltenHideOutput<CR>", opts)
+    end,
+})
 

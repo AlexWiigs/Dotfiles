@@ -5,7 +5,6 @@ opt.relativenumber = true -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
 opt.fillchars = { eob = " " }
 
-
 -- tabs & indentation
 opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
 opt.shiftwidth = 2 -- 2 spaces for indent width
@@ -24,7 +23,6 @@ vim.opt.formatoptions:append("t")  -- Automatically format text to fit within te
 vim.cmd([[
   autocmd CursorMoved * normal! zz
 ]])
-
 
 -- search settings
 opt.ignorecase = true -- ignore case when searching
@@ -68,3 +66,5 @@ vim.opt.foldenable = true
 
 -- Set Conceallevel
 vim.opt.conceallevel = 2
+
+
