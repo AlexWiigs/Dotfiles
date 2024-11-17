@@ -16,7 +16,7 @@ ls.add_snippets("quarto", {
     fmta(
        [[
          ```{R}
-             <>
+         <>
          ```
        ]],
     { i(1) }
@@ -28,13 +28,23 @@ ls.add_snippets("quarto", {
     fmta(
        [[
          ```{Python}
-             <>
+         <>
          ```
        ]],
     { i(1) }
     ),
     { condition = in_quarto}
-    )
+    ),
+
+  s({trig=";bglm", dscr="R binomial glm", snippetType = "autosnippet"},
+    fmta(                                                                    
+       [[                                                                    
+         glm(<> ~ <>, family = binomial, data = <>)
+       ]],
+    { i(1), i(2), i(3) }
+    ),
+    { condition = in_quarto}
+    ),
 }),
 
 

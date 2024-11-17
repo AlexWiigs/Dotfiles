@@ -15,8 +15,9 @@ opt.autoindent = true -- copy indent from current line when starting new one
 -- line wrapping
 opt.wrap = false -- disable line wrapping
 
--- Automatically break lines after 80 characters
-vim.opt.textwidth = 80
+-- Automatically break lines after "" characters (You had it set
+-- on 80 for much of your config)
+vim.opt.textwidth = 65
 vim.opt.formatoptions:append("t")  -- Automatically format text to fit within textwidth
 
 -- Automatically center the current line after every cursor move
@@ -65,4 +66,5 @@ vim.opt.scrolloff = 10
 vim.opt.foldmethod = "syntax"
 vim.opt.foldenable = true
 
-
+-- Set Conceallevel
+vim.opt.conceallevel = 2

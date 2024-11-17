@@ -1,7 +1,23 @@
+
+--FIXME: Need to change this function to account for markdown files.
+
 local in_mathzone = function()
-  -- The `in_mathzone` function requires the VimTeX plugin
-  return vim.fn['vimtex#syntax#in_mathzone']() == 1
-end  
+  local ts_utils = require('nvim-treesitter.ts_utils')
+  local node = ts_utils.get_node_at_cursor()
+
+  while node do
+    -- Notify node type for debugging
+    vim.notify("Node type: " .. node:type(), vim.log.levels.INFO)
+
+    -- Check for relevant node types
+    if node:type() == 'inline_math' or node:type() == 'math_block' or node:type() == 'displayed_equation' then
+      return true
+    end
+    node = node:parent()
+  end
+
+  return false
+end
 
 return {
 
@@ -26,22 +42,12 @@ return {
 
   -- Probability
   s(
-    {trig = ";p", regTrig = true, wordTrig = false, snippetType = "autosnippet"},
-    fmta("\\Pr[<>]", {i(1)}),
+    {trig = "prob", regTrig = true, wordTrig = false, snippetType = "autosnippet"},
+    fmta("\\Pr(<>)", {i(1)}),
     {condition = in_mathzone}
   ),
 
-  s(
-    {trig = ";e", regTrig = true, wordTrig = false, snippetType = "autosnippet"},
-    fmta("\\mathbb{E}[<>]", {i(1)}),
-    {condition = in_mathzone}
-  ),
 
-  s(
-    {trig = ";v", regTrig = true, wordTrig = false, snippetType = "autosnippet"},
-    fmta("\\mathbb{V}[<>]", {i(1)}),
-    {condition = in_mathzone}
-  ),
 
   -- Inequalities
   s(
@@ -161,72 +167,72 @@ return {
   
   -- Greek Letters
   s(
-    {trig = "alpha", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";a", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\alpha")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Alpha", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";A", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Alpha")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "beta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";b", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\beta")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Beta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";B", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Beta")},
     {condition = in_mathzone}
   ),
   s(
-    {trig = "gamma", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";c", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\gamma")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Gamma", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";C", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Gamma")},
     {condition = in_mathzone}
   ),
 
    s(
-    {trig = "delta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";d", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\delta")},
     {condition = in_mathzone}
   ), 
 
   s(
-    {trig = "Delta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";D", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Delta")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "epsilon", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";e", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\epsilon")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Epsilon", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";E", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Epsilon")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "zeta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";z", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\zeta")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Zeta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";Z", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Zeta")},
     {condition = in_mathzone}
   ),
@@ -244,61 +250,61 @@ return {
   ),
 
   s(
-    {trig = "theta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";t", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\theta")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Theta", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";T", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Theta")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "iota", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";i", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\iota")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Iota", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";I", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Iota")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "kapp", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";k", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\kappa")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Kappa", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";K", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Kappa")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "lambda", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";l", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\lambda")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Lambda", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";L", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Lambda")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "mu", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";m", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\mu")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Mu", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";M", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Mu")},
     {condition = in_mathzone}
   ),
@@ -328,13 +334,13 @@ return {
   ),
 
   s(
-    {trig = "omicron", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";o", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\omicron")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Omicron", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";O", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Omicron")},
     {condition = in_mathzone}
   ),
@@ -364,13 +370,13 @@ return {
   ),
 
   s(
-    {trig = "sigma", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";s", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\sigma")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Sigma", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";S", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Sigma")},
     {condition = in_mathzone}
   ),
@@ -382,13 +388,13 @@ return {
   ),
 
   s(
-    {trig = "upsilon", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";u", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\upsilon")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Upsilon", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";U", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Upsilon")},
     {condition = in_mathzone}
   ),
@@ -424,13 +430,13 @@ return {
   ),
 
   s(
-    {trig = "omega", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";o", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\omega")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Omega", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";O", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Omega")},
     {condition = in_mathzone}
   ),
@@ -451,107 +457,6 @@ return {
           ]], {i(1), i(2), rep(1)}),
     {condition = in_mathzone}
   ),
-
-  -- Auto Subscripts
-s({trig = '([%a%)%]%}])0', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("0")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])1', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("1")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])2', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("2")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])3', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("3")
-    }
-  )
-),
-s({trig = '([%a%)%]%}])4', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("4")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])5', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("5")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])6', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("6")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])7', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("7")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])8', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("8")
-    }
-  )
-),
-
-s({trig = '([%a%)%]%}])9', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-  fmta(
-    "<>_{<>}",
-    {
-      f( function(_, snip) return snip.captures[1] end ),
-      t("9")
-    }
-  )
-),
-
 
 }
 

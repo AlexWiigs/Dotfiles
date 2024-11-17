@@ -19,7 +19,6 @@ return {
         vim.g.vimtex_indent_enabled = 1
         vim.g.vimtex_fold_enabled = 1 -- Enable folding for environments and secthlions
         -- Enhanced conceal options for more conceal usage in math
-        vim.o.conceallevel = 2
         vim.o.concealcursor = ""
         vim.g.vimtex_syntax_conceal = {
             accents = 1,           -- Conceal accents (e.g., \bar)

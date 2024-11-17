@@ -7,7 +7,7 @@
     return not in_math_zone()
   end
 
--- Math mode snippet for bold symbol
+  -- Math mode snippet for bold symbol
   local bold_math = ls.parser.parse_snippet({ trig = "bs", name = "Bold Symbol", dscr = "Insert \\boldsymbol{} in math mode" }, "\\boldsymbol{${1:$TM_SELECTED_TEXT}}$0")
   bold_math.condition = in_math_zone
 
