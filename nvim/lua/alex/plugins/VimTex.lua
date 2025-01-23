@@ -5,8 +5,8 @@ return {
         -- Basic VimTeX configuration
         vim.g.tex_flavor = 'latex' -- Default flavor
         vim.g.vimtex_compiler_method = 'latexmk'
-        vim.g.vimtex_view_method = 'sioyek'
-        vim.g.vimtex_view_general_viewer = 'sioyek'
+        vim.g.vimtex_view_method = 'skim' --sioyek
+        vim.g.vimtex_view_general_viewer = 'skim' --sioyek
         vim.g.vimtex_view_general_options = '--reuse-instance'
 
         -- Key mappings (optional but recommended)
@@ -17,7 +17,7 @@ return {
         
         -- Auto-indentation settings (optional but useful)
         vim.g.vimtex_indent_enabled = 1
-        vim.g.vimtex_fold_enabled = 1 -- Enable folding for environments and secthlions
+        vim.g.vimtex_fold_enabled = 0 -- Enable folding for environments and secthlions
         -- Enhanced conceal options for more conceal usage in math
         vim.o.concealcursor = ""
         vim.g.vimtex_syntax_conceal = {

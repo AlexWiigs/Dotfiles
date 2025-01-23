@@ -38,7 +38,7 @@ return {
         "r_language_server",
       },
     })
-    
+
     -- Set up texlab for LaTeX
     lspconfig.texlab.setup({
       capabilities = capabilities,
@@ -52,7 +52,7 @@ return {
             onSave = true,
           },
           forwardSearch = {
-            executable = "skim", -- Update with the correct path if necessary
+            executable = "sioyek", -- Update with the correct path if necessary
             args = { "--synctex-forward", "%l:1:%f", "%p" },
           },
           chktex = {
@@ -77,6 +77,8 @@ return {
     lspconfig.pyright.setup({
       capabilities = capabilities,
     })
+-- BUG:
+-- Python codeblock are being linted wth R.
 
     -- Set up r_language_server for R and Quarto files
     lspconfig.r_language_server.setup({

@@ -5,6 +5,20 @@ end
 
 return {
 
+  -- Basic
+  s(
+    {trig = "imp", snippetType = "autosnippet"},
+    {t("\\implies")},
+    {condition = in_mathzone}
+  ),
+
+  s(
+    {trig = "ss", snippetType = "autosnippet"},
+    {t("\\quad")},
+    {condition = in_mathzone}
+  ),
+
+
   -- Sets
   s(
     {trig = "in", snippetType = "autosnippet"},
@@ -140,7 +154,7 @@ return {
 
   -- BoldSymbol
   s(
-    {trig = "bold", dscr="BoldSymbols in Mathmode", snippetType = "autosnippet"},
+    {trig = "bm", dscr="BoldSymbols in Mathmode", snippetType = "autosnippet"},
     fmta("\\bm{<>}", {i(1)}),
     {condition = in_mathzone}
   ),
@@ -268,13 +282,13 @@ return {
   ),
 
   s(
-    {trig = "kapp", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";k", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\kappa")},
     {condition = in_mathzone}
   ),
 
   s(
-    {trig = "Kappa", snippetType="autosnippet"}, -- Table of snippet parameters
+    {trig = ";K", snippetType="autosnippet"}, -- Table of snippet parameters
     {t("\\Kappa")},
     {condition = in_mathzone}
   ),
@@ -551,6 +565,9 @@ s({trig = '([%a%)%]%}])9', regTrig = true, wordTrig = false, snippetType="autosn
     }
   )
 ),
+
+
+
 
 
 }
