@@ -1,7 +1,3 @@
-
--- Is the line at the bottom of the neovim window that shows what mode you are
--- in, errors, location and all that.
-
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -29,4 +25,3 @@ return {
     })
   end,
 }
-

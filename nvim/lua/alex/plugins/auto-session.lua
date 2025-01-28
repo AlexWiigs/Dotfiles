@@ -1,7 +1,3 @@
-
--- Takes you back to the file you were working on the last time you opened the
--- directory in neovim.
-
 return {
   "rmagatti/auto-session",
   config = function()

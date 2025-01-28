@@ -4,11 +4,10 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local todo_comments = require("todo-comments")
+
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
-    -- NOTE: You can add: PERF, HACK, TODO, NOTE, FIX, WARNING
-    -- Use all-caps and colon
     keymap.set("n", "]t", function()
       todo_comments.jump_next()
     end, { desc = "Next todo comment" })
