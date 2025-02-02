@@ -9,4 +9,3 @@ return {
 -- Make strings with ys$
 -- delete surround around cursor with ds then character. eg: ds)
 -- change quotes around cursor with cs then current then new. eg: cs'"
---

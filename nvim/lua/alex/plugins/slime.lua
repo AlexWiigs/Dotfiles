@@ -5,7 +5,7 @@ return {
 		vim.g.slime_target = "tmux" -- Use tmux as the target
 		vim.g.slime_default_config = {
 			socket_name = "default", -- Default tmux socket
-			target_pane = "matlab:%0", -- Default target pane (update as needed)
+			target_pane = "workspace:0.0", -- Default target pane (update as needed)
 		}
 		vim.g.slime_bracketed_paste = 1 -- Enable bracketed paste mode for better tmux integration
 
