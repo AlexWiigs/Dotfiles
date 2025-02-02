@@ -2,7 +2,7 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
-
+local utils = require("alex.luasnip.utils")
 -- Define the Tree-sitter condition function
 local function is_in_latex_mode()
 	local ts_utils = require("nvim-treesitter.ts_utils")
@@ -22,10 +22,8 @@ ls.add_snippets("markdown", {
 	s({
 		trig = "frac",
 		snippetType = "autosnippet",
-		condition = function()
-			return is_in_latex_mode()
-		end,
-		dscr = "Insert a fraction: \frac{numerator}{denominator}",
+		condition = utils.is_in_latex_mode, -- Use shared function
+		dscr = "Insert a fraction: \\frac{numerator}{denominator}",
 	}, {
 		t("\\frac{"),
 		i(1, "numerator"),
