@@ -1,33 +1,9 @@
--- local ls = require("luasnip")
--- local s = ls.snippet
--- local t = ls.text_node
--- local conds = require("luasnip.extras.conditions")
---
--- ls.add_snippets("markdown", {
--- 	s({
--- 		trig = "test",
--- 		snippetType = "autosnippet",
--- 		condition = function()
--- 			local ts_utils = require("nvim-treesitter.ts_utils")
--- 			local node = ts_utils.get_node_at_cursor()
--- 			while node do
--- 				if node:type() == "latex_block" then
--- 					return true
--- 				end
--- 				node = node:parent()
--- 			end
--- 			return false
--- 		end,
--- 	}, {
--- 		t("This is an auto-triggered test snippet in LaTeX mode!"),
--- 	}),
--- })
-
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
+local i = ls.insert_node
 
--- Define the Tree-sitter condition function separately
+-- Define the Tree-sitter condition function
 local function is_in_latex_mode()
 	local ts_utils = require("nvim-treesitter.ts_utils")
 	local node = ts_utils.get_node_at_cursor()
@@ -42,14 +18,83 @@ end
 
 -- Add snippets
 ls.add_snippets("markdown", {
+	-- Fraction snippet
 	s({
-		trig = "test",
+		trig = "frac",
 		snippetType = "autosnippet",
 		condition = function()
-			-- Explicitly call the function within the snippet to retain context
 			return is_in_latex_mode()
 		end,
+		dscr = "Insert a fraction: \frac{numerator}{denominator}",
 	}, {
-		t("This is an auto-triggered test snippet in LaTeX mode!"),
+		t("\\frac{"),
+		i(1, "numerator"),
+		t("}{"),
+		i(2, "denominator"),
+		t("}"),
+	}),
+
+	-- Derivative snippet
+	s({
+		trig = "diff",
+		snippetType = "autosnippet",
+		condition = function()
+			return is_in_latex_mode()
+		end,
+		dscr = "Insert a derivative: \frac{d}{d}",
+	}, {
+		t("\\frac{d}{d"),
+		i(1, "variable"),
+		t("}{"),
+		i(2, "function"),
+		t("}"),
+	}),
+
+	-- Partial Derivative snippet
+	s({
+		trig = "pdiff",
+		snippetType = "autosnippet",
+		condition = function()
+			return is_in_latex_mode()
+		end,
+		dscr = "Insert a partial derivative: \frac{partial}{partial}",
+	}, {
+		t("\\frac{\\partial}{\\partial"),
+		i(1, "variable"),
+		t("}{"),
+		i(2, "function"),
+		t("}"),
+	}),
+
+	-- Summation snippet
+	s({
+		trig = "sum",
+		snippetType = "autosnippet",
+		condition = function()
+			return is_in_latex_mode()
+		end,
+		dscr = "Insert a summation: sum_{lower}^{upper}",
+	}, {
+		t("\\sum_{"),
+		i(1, "lower"),
+		t("}^{"),
+		i(2, "upper"),
+		t("}"),
+	}),
+
+	-- Integral snippet
+	s({
+		trig = "int",
+		snippetType = "autosnippet",
+		condition = function()
+			return is_in_latex_mode()
+		end,
+		dscr = "Insert an integral: int_{lower}^{upper}",
+	}, {
+		t("\\int_{"),
+		i(1, "lower"),
+		t("}^{"),
+		i(2, "upper"),
+		t("}"),
 	}),
 })

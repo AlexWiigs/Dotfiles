@@ -21,6 +21,7 @@
 
 ### Inline Code
 
+$This is an auto-triggered test snippet in LaTeX mode!$
 Use `printf("Hello, World!")` in C.
 
 $$
