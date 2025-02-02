@@ -19,6 +19,9 @@
 
 ## 2. Code Blocks
 
+alpha
+$\alpha \beta \Beta$
+
 ### Inline Code
 
 $This is an auto-triggered test snippet in LaTeX mode!$
