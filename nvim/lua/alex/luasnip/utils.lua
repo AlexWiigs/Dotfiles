@@ -17,4 +17,9 @@ function M.not_in_latex_mode()
 	return not M.is_in_latex_mode()
 end
 
+-- LaTeX functions
+function M.in_textzone()
+	return vim.fn["vimtex#syntax#in_mathzone"]() == 0
+end
+
 return M

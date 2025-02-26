@@ -34,7 +34,7 @@ ls.add_snippets("markdown", {
 
 	-- Derivative snippet
 	s({
-		trig = "diff",
+		trig = "deriv",
 		snippetType = "autosnippet",
 		condition = function()
 			return is_in_latex_mode()
@@ -50,7 +50,7 @@ ls.add_snippets("markdown", {
 
 	-- Partial Derivative snippet
 	s({
-		trig = "pdiff",
+		trig = "partial",
 		snippetType = "autosnippet",
 		condition = function()
 			return is_in_latex_mode()

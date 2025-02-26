@@ -4,7 +4,7 @@ return {
 	config = function()
 		-- Basic VimTeX configuration
 		vim.g.tex_flavor = "latex"
-		vim.g.vimtex_compiler_method = "latexmk"
+		vim.g.vimtex_compiler_method = "latexmk" -- "latexmk"
 		vim.g.vimtex_view_method = "skim"
 		vim.g.vimtex_view_general_viewer = "skim"
 		vim.g.vimtex_view_general_options = "--reuse-instance"

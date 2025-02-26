@@ -6,7 +6,7 @@ return {
 		config = function()
 			require("onedark").setup({
 				style = "dark", -- Set the style to 'dark'
-				transparent = false, -- Set to true if you want transparency
+				transparent = true, -- Set to true if you want transparency
 				term_colors = true, -- Use terminal colors
 				code_style = {
 					comments = "italic",
