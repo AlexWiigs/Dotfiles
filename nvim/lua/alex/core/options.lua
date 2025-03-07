@@ -20,6 +20,10 @@ opt.smartcase = true -- if you include mixed case in your search, assumes you wa
 opt.cursorline = true -- highlight the current cursor line
 vim.opt.scrolloff = 999
 
+-- spelling
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true
+
 -- appearance
 
 -- turn on termguicolors for nightfly colorscheme to work
