@@ -15,6 +15,12 @@ keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) 
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
+-- Reload Neovim
+keymap.set("n", "<leader>rr", function()
+	vim.cmd("SessionSave") -- Save current session
+	vim.cmd("qa") -- Quit Neovim
+end, { desc = "Save and exit Neovim session" })
+
 -- luasnip
 vim.cmd([[
 " Use Tab to expand or jump through snippets
@@ -35,7 +41,7 @@ vim.keymap.set("n", "<leader>d", function()
 		vim.g.current_colorscheme = "dawnfox"
 	else
 		vim.cmd("colorscheme nordfox")
-		vim.g.current_colorscheme = "nordfox"
+		vim.g.current_colorscheme = "terafox"
 	end
 end, { noremap = true, silent = true })
 

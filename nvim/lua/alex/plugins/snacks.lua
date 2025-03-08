@@ -100,5 +100,31 @@ return {
 				{ section = "startup" },
 			},
 		},
+
+		-- IMAGE CONFIGURATION
+		image = {
+			backend = "ghostty", -- Options: "kitty", "wezterm", "ghostty"
+			--My additions
+			inline = vim.g.neovim_mode == "skitty" and true or false,
+			float = true,
+			max_width = 400, -- Max width in pixels
+			max_height = 300, -- Max height in pixels
+			integration = {
+				markdown = true, -- Render images in markdown files
+				neorg = false, -- Disable for Neorg
+				latex = false, -- Enable LaTeX rendering
+			},
+			latex = {
+				density = 300, -- Image resolution (DPI)
+				background = "Transparent", -- Can be "White" or "Transparent"
+				font_size = 6, -- Font size for LaTeX rendering
+				preamble = [[
+					\usepackage{amsmath, amssymb, bm}
+					\usepackage{geometry}
+          \geometry{margin=0.5in}
+          \pagestyle{empty}
+				]], -- Custom LaTeX preamble
+			},
+		},
 	},
 }

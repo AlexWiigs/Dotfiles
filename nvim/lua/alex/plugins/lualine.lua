@@ -9,8 +9,8 @@ return {
 		lualine.setup({
 			options = {
 				icons_enabled = true,
-				theme = "auto",
-				component_separators = { left = "│", right = "│" },
+				theme = "nord",
+				component_separators = { left = " ", right = " " },
 				section_separators = { left = "", right = "" }, -- Remove separators to avoid black lines
 				disabled_filetypes = { statusline = {}, winbar = {} },
 				always_divide_middle = true,
@@ -29,8 +29,7 @@ return {
 				},
 				lualine_x = {
 					{ lazy_status.updates, cond = lazy_status.has_updates, color = { fg = "#ff9e64", bg = "none" } },
-					{ "encoding", color = { bg = "none" } },
-					{ "fileformat", color = { bg = "none" } },
+					-- { "fileformat", color = { bg = "none" } },
 					{ "filetype", color = { bg = "none" } },
 				},
 				lualine_y = { "progress" },
