@@ -171,7 +171,12 @@ return {
 			end,
 			img_text_func = function(client, path)
 				path = client:vault_relative_path(path) or path
-				return string.format("![%s](%s)", path.name, path)
+				-- Ensure only actual image files get formatted as images
+				if path:match("%.png$") or path:match("%.jpg$") or path:match("%.jpeg$") or path:match("%.gif$") then
+					return string.format("![%s](%s)", path.name, path)
+				else
+					return string.format("[%s](%s)", path.name, path) -- Use a standard markdown link for non-image files
+				end
 			end,
 		},
 	},
