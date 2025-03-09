@@ -21,7 +21,7 @@ opt.cursorline = true -- highlight the current cursor line
 vim.opt.scrolloff = 999
 
 -- Disable default showmode
-vim.opt.showmode = false
+vim.opt.cmdheight = 0
 
 -- spelling
 vim.opt.spelllang = "en_us"
