@@ -20,6 +20,9 @@ opt.smartcase = true -- if you include mixed case in your search, assumes you wa
 opt.cursorline = true -- highlight the current cursor line
 vim.opt.scrolloff = 999
 
+-- Disable default showmode
+vim.opt.showmode = false
+
 -- spelling
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
