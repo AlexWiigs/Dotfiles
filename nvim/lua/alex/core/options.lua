@@ -30,7 +30,7 @@ vim.opt.spell = true
 
 -- appearance
 
--- turn on termguicolors for nightfly colorscheme to work
+-- turn on termguicolors
 opt.termguicolors = true
 opt.background = "dark" -- colorschemes that can be light or dark will be made dark
 

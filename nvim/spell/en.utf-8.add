@@ -42,3 +42,6 @@ luasnip
 lualine
 showmode
 Kiefer
+termguicolors
+colorschemes
+keypresses

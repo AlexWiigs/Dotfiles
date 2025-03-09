@@ -115,7 +115,7 @@ return {
 				latex = false, -- Enable LaTeX rendering
 			},
 			latex = {
-				density = 300, -- Image resolution (DPI)
+				density = 400, -- Image resolution (DPI)
 				background = "Transparent", -- Can be "White" or "Transparent"
 				font_size = 6, -- Font size for LaTeX rendering
 				preamble = [[

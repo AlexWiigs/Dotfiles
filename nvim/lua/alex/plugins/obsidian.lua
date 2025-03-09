@@ -68,7 +68,7 @@ return {
 			return require("obsidian.util").markdown_link(opts)
 		end,
 
-		preferred_link_style = "wiki", -- markdown or wiki
+		preferred_link_style = "markdown", -- markdown or wiki
 		disable_frontmatter = false,
 
 		note_frontmatter_func = function(note)
