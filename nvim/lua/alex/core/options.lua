@@ -21,7 +21,8 @@ opt.cursorline = true -- highlight the current cursor line
 vim.opt.scrolloff = 999
 
 -- Disable default showmode
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1 -- Keep command line visible
+vim.opt.showcmd = false -- Prevent keypresses from showing in the command area
 
 -- spelling
 vim.opt.spelllang = "en_us"

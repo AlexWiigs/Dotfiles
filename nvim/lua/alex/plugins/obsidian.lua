@@ -10,6 +10,9 @@ return {
 		-- see below for full list of optional dependencies 👇
 	},
 	opts = {
+
+		disable_spellcheck = true,
+
 		workspaces = {
 			{
 				name = "Current",
