@@ -35,7 +35,7 @@ return {
 		hyperlink = "󰌹 ",
 		highlight = "RenderMarkdownLink",
 		wiki = {
-			icon = "󱗖 ",
+			icon = "󰌹 ",
 			body = function()
 				return nil
 			end,
