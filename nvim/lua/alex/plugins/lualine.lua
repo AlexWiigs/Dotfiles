@@ -42,7 +42,7 @@ return {
 					{ lazy_status.updates, cond = lazy_status.has_updates },
 					{ "filetype" },
 				},
-				lualine_y = { "progress" },
+				lualine_y = { { "progress", color = { bg = "none" } } },
 				lualine_z = {
 					{ "location", separator = { left = "", right = "" } },
 				},

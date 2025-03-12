@@ -4,9 +4,17 @@ local t = ls.text_node
 local i = ls.insert_node
 local fmta = require("luasnip.extras.fmt").fmta
 
-local in_mathzone = function()
-	-- The `in_mathzone` function requires the VimTeX plugin
-	return vim.fn["vimtex#syntax#in_mathzone"]() == 1
+local ts_utils = require("nvim-treesitter.ts_utils")
+
+local function in_mathzone()
+	local node = ts_utils.get_node_at_cursor()
+	while node do
+		if node:type() == "math_environment" or node:type() == "text_mode" then
+			return true
+		end
+		node = node:parent()
+	end
+	return false
 end
 
 return {
