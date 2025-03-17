@@ -1,31 +1,21 @@
 return {
 	"jpalardy/vim-slime",
 	config = function()
-		-- Basic vim-slime configuration
-		vim.g.slime_target = "tmux" -- Use tmux as the target
+		-- Set tmux as the target
+		vim.g.slime_target = "tmux"
+
+		-- Default Vim-Slime configuration for tmux
 		vim.g.slime_default_config = {
 			socket_name = "default", -- Default tmux socket
 			target_pane = "workspace:0.0", -- Default target pane (update as needed)
 		}
-		vim.g.slime_bracketed_paste = 1 -- Enable bracketed paste mode for better tmux integration
 
-		-- Automatically configure slime for MATLAB files
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = "matlab", -- For .m files (Treesitter recognizes MATLAB as "matlab")
-			callback = function()
-				vim.g.slime_default_config = {
-					socket_name = "default", -- Replace with your MATLAB tmux socket name if different
-					target_pane = ":matlab", -- Replace with the tmux pane running MATLAB
-				}
-			end,
-		})
+		-- Enable bracketed paste mode for better tmux integration
+		vim.g.slime_bracketed_paste = 1
 
-		-- Optional key mappings for convenience
+		-- Key mappings for convenience
 		vim.api.nvim_set_keymap("n", "<leader>sc", "<Plug>SlimeConfig", { noremap = true, silent = true }) -- Quickly reconfigure vim-slime
-		vim.api.nvim_set_keymap("v", "<leader>ss", "<C-c><C-c>", { noremap = false, silent = true }) -- Send code to tmux
+		vim.api.nvim_set_keymap("n", "<leader>sa", ":%SlimeSend<CR>", { noremap = true, silent = true }) -- Send the whole file
+		vim.api.nvim_set_keymap("v", "<leader>sv", "<Plug>SlimeRegionSend", { noremap = false, silent = true })
 	end,
-	keys = {
-		{ "<leader>sc", mode = "n" },
-		{ "<leader>ss", mode = "n" },
-	},
 }

@@ -24,7 +24,7 @@ return {
 			},
 		})
 
-		-- Set colorscheme (change "nightfox" to "dayfox" for light mode)
+		-- Set colorscheme
 		vim.cmd("colorscheme nordfox") -- Options: nightfox, dayfox, dawnfox, duskfox, nordfox, terafox, carbonfox
 	end,
 }

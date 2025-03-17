@@ -41,7 +41,7 @@ vim.keymap.set("n", "<leader>d", function()
 		vim.g.current_colorscheme = "dawnfox"
 	else
 		vim.cmd("colorscheme nordfox")
-		vim.g.current_colorscheme = "terafox"
+		vim.g.current_colorscheme = "nordfox"
 	end
 end, { noremap = true, silent = true })
 
