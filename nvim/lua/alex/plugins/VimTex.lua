@@ -16,7 +16,7 @@ return {
 		vim.api.nvim_set_keymap("n", "<leader>lC", ":VimtexClean<CR>", { noremap = true, silent = true })
 
 		-- Auto-indentation settings (optional but useful)
-		-- vim.g.vimtex_indent_enabled = 1
+		vim.g.vimtex_indent_enabled = 1
 		vim.g.vimtex_fold_enabled = 0 -- Enable folding for environments and secthlions
 		-- Enhanced conceal options for more conceal usage in math
 		vim.o.concealcursor = ""
