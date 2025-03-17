@@ -4,21 +4,42 @@ return {
 	config = function()
 		-- Basic VimTeX configuration
 		vim.g.tex_flavor = "latex"
-		vim.g.vimtex_compiler_method = "latexmk" -- "latexmk"
+		vim.g.vimtex_compiler_method = "latexmk"
 		vim.g.vimtex_view_method = "skim"
 		vim.g.vimtex_view_general_viewer = "skim"
 		vim.g.vimtex_view_general_options = "--reuse-instance"
 
-		-- Key mappings (optional but recommended)
-		vim.api.nvim_set_keymap("n", "<leader>lc", ":VimtexCompile<CR>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "<leader>lv", ":VimtexView<CR>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "<leader>ls", ":VimtexStop<CR>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "<leader>lC", ":VimtexClean<CR>", { noremap = true, silent = true })
+		-- Key mappings
+		local keymap = vim.api.nvim_set_keymap
+		local opts = { noremap = true, silent = true }
+		keymap("n", "<leader>lc", ":VimtexCompile<CR>", opts)
+		keymap("n", "<leader>lv", ":VimtexView<CR>", opts)
+		keymap("n", "<leader>ls", ":VimtexStop<CR>", opts)
+		keymap("n", "<leader>lC", ":VimtexClean<CR>", opts)
+		keymap("n", "<leader>le", ":VimtexErrors<CR>", opts) -- Show errors
+		keymap("n", "<leader>li", ":VimtexInfo<CR>", opts) -- Show VimTeX info
 
-		-- Auto-indentation settings (optional but useful)
+		-- Auto-indentation settings
 		vim.g.vimtex_indent_enabled = 1
-		vim.g.vimtex_fold_enabled = 0 -- Enable folding for environments and secthlions
-		-- Enhanced conceal options for more conceal usage in math
+
+		-- Folding settings
+		vim.g.vimtex_fold_enabled = 1
+		vim.cmd([[
+			setlocal foldmethod=expr
+			setlocal foldexpr=vimtex#fold#level()
+			setlocal foldlevel=3 " Default fold level (adjust as needed)
+		]])
+
+		-- Auto-toggle conceal when entering/exiting insert mode
+		vim.cmd([[
+			augroup VimTeXConceal
+				autocmd!
+				autocmd InsertEnter *.tex set conceallevel=0
+				autocmd InsertLeave *.tex set conceallevel=2
+			augroup END
+		]])
+
+		-- Enhanced conceal options for math readability
 		vim.o.concealcursor = ""
 		vim.g.vimtex_syntax_conceal = {
 			accents = 1, -- Conceal accents (e.g., \bar)
