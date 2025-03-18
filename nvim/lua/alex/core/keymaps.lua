@@ -6,6 +6,9 @@ local keymap = vim.keymap -- for conciseness
 ---------------------
 -- General Keymaps -------------------
 
+--  NOTE: Try to put this in Markview
+keymap.set("n", "<leader>mm", "<Cmd>Markview Toggle<cr>", { desc = "Toggle Markview" }) -- split window vertically
+
 -- clear search highlights
 keymap.set("n", "<leader>cs", ":nohl<CR>", { desc = "Clear search highlights" })
 
