@@ -69,7 +69,7 @@ return {
 		end,
 
 		preferred_link_style = "markdown", -- markdown or wiki
-		disable_frontmatter = false,
+		disable_frontmatter = true,
 
 		note_frontmatter_func = function(note)
 			if note.title then
