@@ -18,7 +18,6 @@ opt.smartcase = true -- if you include mixed case in your search, assumes you wa
 
 -- cursor line
 opt.cursorline = true -- highlight the current cursor line
-vim.opt.scrolloff = 999
 
 -- Disable default showmode
 vim.opt.cmdheight = 1 -- Keep command line visible

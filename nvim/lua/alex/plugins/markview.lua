@@ -26,7 +26,7 @@ return {
 			vim.cmd([[
                 hi MarkviewCode guibg=NONE
                 hi MarkviewCodeInfo guibg=NONE
-                hi MarkviewMath guibg=NONE
+                " hi MarkviewMath guibg=NONE
                 " hi MarkviewYAML guibg=NONE
                 hi MarkviewInlineCode guibg=NONE
                 " hi MarkviewBlockQuote guibg=NONE

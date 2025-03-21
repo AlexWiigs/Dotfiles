@@ -22,7 +22,7 @@ return {
 				visual = false,
 				search = false,
 			},
-		})
+		}) -- night, day, dawn, dusk, nord, tera, carbon
 		vim.cmd("colorscheme nordfox")
 	end,
 }

@@ -71,21 +71,21 @@ return {
 		preferred_link_style = "markdown", -- markdown or wiki
 		disable_frontmatter = true,
 
-		note_frontmatter_func = function(note)
-			if note.title then
-				note:add_alias(note.title)
-			end
-
-			local out = { id = note.id }
-
-			if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-				for k, v in pairs(note.metadata) do
-					out[k] = v
-				end
-			end
-
-			return out
-		end,
+		-- note_frontmatter_func = function(note)
+		-- 	if note.title then
+		-- 		note:add_alias(note.title)
+		-- 	end
+		--
+		-- 	local out = { id = note.id }
+		--
+		-- 	if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+		-- 		for k, v in pairs(note.metadata) do
+		-- 			out[k] = v
+		-- 		end
+		-- 	end
+		--
+		-- 	return out
+		-- end,
 
 		templates = {
 			folder = "templates",
