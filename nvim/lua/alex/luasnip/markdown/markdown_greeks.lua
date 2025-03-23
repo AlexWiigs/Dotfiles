@@ -1,13 +1,27 @@
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
-local utils = require("alex.luasnip.utils") -- Ensure this path is correct
+local i = ls.insert_node
+local utils = require("alex.luasnip.utils")
+
+-- Define the Tree-sitter condition function
+local function is_in_latex_mode()
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = ts_utils.get_node_at_cursor()
+	while node do
+		if node:type() == "latex_block" then
+			return true
+		end
+		node = node:parent()
+	end
+	return false
+end
 
 -- Add Greek letter snippets
 ls.add_snippets("markdown", {
 	-- Lowercase Greek letters
-	s({ trig = "alpha", snippetType = "autosnippet", condition = utils.is_in_latex_mode }, { t("\\alpha") }),
-	s({ trig = "beta", snippetType = "autosnippet", condition = utils.is_in_latex_mode }, { t("\\beta") }),
+	s({ trig = "alpha", snippetType = "autosnippet", condition = is_in_latex_mode() }, { t("\\alpha") }),
+	s({ trig = "beta", snippetType = "autosnippet", condition = is_in_latex_mode() }, { t("\\beta") }),
 	s({ trig = "gamma", snippetType = "autosnippet", condition = utils.is_in_latex_mode }, { t("\\gamma") }),
 	s({ trig = "delta", snippetType = "autosnippet", condition = utils.is_in_latex_mode }, { t("\\delta") }),
 	s({ trig = "epsilon", snippetType = "autosnippet", condition = utils.is_in_latex_mode }, { t("\\epsilon") }),

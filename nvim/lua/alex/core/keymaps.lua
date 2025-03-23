@@ -36,15 +36,19 @@ smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '
 -- Obsidian keymaps
 vim.keymap.set("n", "<leader>o", "<cmd>ObsidianSearch<cr>", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>d", function()
-	if vim.g.current_colorscheme == "nordfox" then
-		vim.cmd("colorscheme dawnfox")
-		vim.g.current_colorscheme = "dawnfox"
-	else
-		vim.cmd("colorscheme nordfox")
-		vim.g.current_colorscheme = "nordfox"
-	end
-end, { noremap = true, silent = true })
-
 -- Misc
 vim.api.nvim_set_keymap("i", "<Tab>", "<Nop>", { noremap = true, silent = true })
+
+-- To-Do Toggle
+keymap.set("n", "<leader>dd", "<cmd>Dooing<CR>", { desc = "Split window vertically" }) -- split window vertically
+
+-- Show node path levels
+vim.keymap.set("n", "<leader>tn", function()
+	local node = vim.treesitter.get_node()
+	local types = {}
+	while node do
+		table.insert(types, node:type())
+		node = node:parent()
+	end
+	print("Node path: " .. table.concat(types, " -> "))
+end, { desc = "Show Tree-sitter node path" })
