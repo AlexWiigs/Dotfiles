@@ -16,11 +16,11 @@ return {
 		workspaces = {
 			{
 				name = "Current",
-				path = "~/research/vault/",
+				path = "~/notes/",
 			},
 		},
 
-		notes_subdir = "notes",
+		notes_subdir = "files",
 		log_level = vim.log.levels.INFO,
 
 		completion = {
