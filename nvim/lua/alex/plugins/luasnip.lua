@@ -5,7 +5,7 @@ return {
 	config = function()
 		local luasnip = require("luasnip")
 		require("luasnip").cleanup()
-		require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/lua/alex/LuaSnip/tex/" } })
+		require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/dotfiles/nvim/lua/alex/LuaSnip/" } })
 
 		-- Setup LuaSnip (if you want to keep snippets for other purposes)
 		luasnip.config.set_config({

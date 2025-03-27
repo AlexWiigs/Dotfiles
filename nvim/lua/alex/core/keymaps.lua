@@ -36,11 +36,12 @@ smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '
 -- Obsidian keymaps
 vim.keymap.set("n", "<leader>o", "<cmd>ObsidianSearch<cr>", { noremap = true, silent = true })
 
--- Misc
-vim.api.nvim_set_keymap("i", "<Tab>", "<Nop>", { noremap = true, silent = true })
-
 -- To-Do Toggle
 keymap.set("n", "<leader>dd", "<cmd>Dooing<CR>", { desc = "Split window vertically" }) -- split window vertically
+
+-- remap record so you stop pressing it by accident
+vim.keymap.set("n", "q", "<Nop>", { noremap = true })
+vim.keymap.set("n", "QQ", "qq", { noremap = true })
 
 -- Show node path levels
 vim.keymap.set("n", "<leader>tn", function()
