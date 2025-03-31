@@ -14,7 +14,11 @@ return {
 	----------- MATH MODE -------------
 	s({ trig = "in", snippetType = "autosnippet" }, { t("\\in") }, { condition = in_mathzone }),
 	-- Hats
-	s({ trig = "hat", regTrig = true, wordTrig = false, snippetType = "autosnippet" }, fmta("\\hat{<>}", { i(1) })),
+	s(
+		{ trig = "hat", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+		fmta("\\hat{<>}", { i(1) }),
+		{ condition = in_mathzone }
+	),
 
 	s(
 		{ trig = "tilde", regTrig = true, wordTrig = false, snippetType = "autosnippet" },

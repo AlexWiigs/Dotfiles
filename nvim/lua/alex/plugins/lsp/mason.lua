@@ -34,6 +34,7 @@ return {
 				"yamlls",
 				"marksman",
 				"html",
+				"sqlls",
 			},
 			automatic_installation = true,
 		})
@@ -46,6 +47,7 @@ return {
 				"black", -- python formatter
 				-- Mine?
 				"latexindent",
+				"sqlfluff",
 			},
 		})
 	end,

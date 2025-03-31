@@ -2,6 +2,7 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
+local rep = require("luasnip.extras").rep
 local fmta = require("luasnip.extras.fmt").fmta
 
 local in_mathzone = function()
@@ -36,6 +37,20 @@ return {
         \end{align*}
       ]],
 			{ i(1) }
+		),
+		{ condition = in_textzone }
+	),
+
+	-- General Begin environment
+	s(
+		{ trig = ";beg", dscr = "begin", snippetType = "autosnippet" },
+		fmta(
+			[[
+          \begin{<>}
+            <>
+          \end{<>}
+          ]],
+			{ i(1), i(2), rep(1) }
 		),
 		{ condition = in_textzone }
 	),

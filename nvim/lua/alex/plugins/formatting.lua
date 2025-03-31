@@ -15,6 +15,7 @@ return {
 				latex = { "latexindent" },
 				matlab = { "mlint" },
 				r = { "styler" },
+				sql = { "sqlfluff" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
