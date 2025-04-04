@@ -23,7 +23,7 @@ return {
 		vim.g.vimtex_indent_enabled = 1
 
 		-- Folding settings
-		vim.g.vimtex_fold_enabled = 1
+		vim.g.vimtex_fold_enabled = 0
 		vim.cmd([[
 			setlocal foldmethod=expr
 			setlocal foldexpr=vimtex#fold#level()
@@ -42,17 +42,17 @@ return {
 		-- Enhanced conceal options for math readability
 		vim.o.concealcursor = ""
 		vim.g.vimtex_syntax_conceal = {
-			accents = 1, -- Conceal accents (e.g., \bar)
-			cites = 1, -- Conceal citations
-			fancy = 1, -- Conceal fancy characters (e.g., \ell)
-			greek = 1, -- Conceal Greek letters
-			math_bounds = 1, -- Conceal bounds (e.g., \left, \right)
+			accents = 0, -- Conceal accents (e.g., \bar)
+			cites = 0, -- Conceal citations
+			fancy = 0, -- Conceal fancy characters (e.g., \ell)
+			greek = 0, -- Conceal Greek letters
+			math_bounds = 0, -- Conceal bounds (e.g., \left, \right)
 			math_delimiters = 0, -- Conceal delimiters (e.g., \(, \), \[)
-			math_fracs = 1, -- Conceal fractions (\frac)
-			math_super_sub = 1, -- Conceal superscripts and subscripts
-			math_symbols = 1, -- Conceal symbols (e.g., \times, \cdot)
-			sections = 1, -- Conceal section commands (e.g., \section)
-			styles = 1, -- Conceal font styles (e.g., \textbf)
+			math_fracs = 0, -- Conceal fractions (\frac)
+			math_super_sub = 0, -- Conceal superscripts and subscripts
+			math_symbols = 0, -- Conceal symbols (e.g., \times, \cdot)
+			sections = 0, -- Conceal section commands (e.g., \section)
+			styles = 0, -- Conceal font styles (e.g., \textbf)
 		}
 	end,
 }
