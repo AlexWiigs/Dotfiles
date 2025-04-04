@@ -10,7 +10,7 @@ return {
 
 		require("markview").setup({
 			markdown = {
-				headings = presets.headings.simple,
+				headings = presets.headings.slanted,
 				horizontal_rules = presets.horizontal_rules.dotted,
 				tables = presets.tables.rounded,
 			},

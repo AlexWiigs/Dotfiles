@@ -36,6 +36,9 @@ smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '
 -- Obsidian keymaps
 vim.keymap.set("n", "<leader>o", "<cmd>ObsidianSearch<cr>", { noremap = true, silent = true })
 
+-- Oil
+vim.keymap.set("n", "<leader>i", "<cmd>Oil<cr>", { noremap = true, silent = true })
+
 -- To-Do Toggle
 keymap.set("n", "<leader>dd", "<cmd>Dooing<CR>", { desc = "Split window vertically" }) -- split window vertically
 

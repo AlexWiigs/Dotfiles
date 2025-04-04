@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			vim.opt_local.linebreak = false
 			vim.opt_local.textwidth = 80
 			vim.opt_local.formatoptions:append("t")
-			vim.opt.colorcolumn = "80"
+			-- vim.opt.colorcolumn = "80"
 		end
 	end,
 })
