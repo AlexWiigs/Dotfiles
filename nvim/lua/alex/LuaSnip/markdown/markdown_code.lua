@@ -3,12 +3,20 @@ local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
 
--- Define the Tree-sitter condition function
-local function is_in_latex_mode()
-	local ts_utils = require("nvim-treesitter.ts_utils")
-	local node = ts_utils.get_node_at_cursor()
+-- Treesitter math condition
+-- Table of math-related node types in markdown/LaTeX
+local MATH_NODES = { inline_formula = true, displayed_equation = true, math_environment = true }
+
+function in_mathzone()
+	-- Get the current node at cursor, including injected languages (e.g. LaTeX in markdown)
+	local node = vim.treesitter.get_node({ ignore_injections = false })
 	while node do
-		if node:type() == "latex_block" then
+		local t = node:type()
+		if t == "text_mode" then
+			-- If inside a LaTeX text-mode block (non-math text in a math environment), it’s not a math zone
+			return false
+		elseif MATH_NODES[t] then
+			-- Found an inline formula, display equation, or math environment
 			return true
 		end
 		node = node:parent()
@@ -16,23 +24,13 @@ local function is_in_latex_mode()
 	return false
 end
 
-local function not_in_latex_mode()
-	return not is_in_latex_mode()
-end
-
--- Add snippets
+-- Add math snippet for markdown
 ls.add_snippets("markdown", {
-
-	-- Python Blocks
 	s({
-		trig = ";py",
+		trig = "alpha",
 		snippetType = "autosnippet",
-		condition = not_in_latex_mode,
-		dscr = "Insert a python block",
+		condition = in_mathzone,
 	}, {
-		t("```python"),
-		t({ "", "" }),
-		i(1, "python code"),
-		t({ "", "```" }),
+		t("\\alpha"),
 	}),
 })

@@ -12,6 +12,12 @@ keymap.set("n", "<leader>mm", "<Cmd>Markview Toggle<cr>", { desc = "Toggle Markv
 -- clear search highlights
 keymap.set("n", "<leader>cs", ":nohl<CR>", { desc = "Clear search highlights" })
 
+-- Disable arrow keys
+vim.keymap.set({ "n", "i", "v" }, "<Up>", "<Nop>")
+vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>")
+vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>")
+vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>")
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
@@ -19,8 +25,8 @@ keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- 
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
 -- Save and Exit
-keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Split window vertically" }) -- split window vertically
-keymap.set("n", "<leader>wq", "<cmd>wq<CR>", { desc = "Split window horizontally" }) -- split window horizontally
+keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save current session" }) -- split window vertically
+keymap.set("n", "<leader>wq", "<cmd>wq<CR>", { desc = "Save and quit session" }) -- split window horizontally
 
 -- luasnip
 vim.cmd([[

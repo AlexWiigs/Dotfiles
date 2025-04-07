@@ -3,7 +3,7 @@ return {
 	lazy = false,
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
-		"nvim-tree/nvim-web-devicons",
+		"echasnovski/mini.nvim",
 	},
 	config = function()
 		local presets = require("markview.presets") -- Load presets
