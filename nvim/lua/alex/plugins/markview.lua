@@ -9,9 +9,10 @@ return {
 		local presets = require("markview.presets") -- Load presets
 
 		require("markview").setup({
+
 			markdown = {
 				headings = presets.headings.slanted,
-				horizontal_rules = presets.horizontal_rules.dotted,
+				horizontal_rules = presets.horizontal_rules.thin,
 				tables = presets.tables.rounded,
 			},
 			yaml = {

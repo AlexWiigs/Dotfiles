@@ -19,7 +19,7 @@ return {
 		fmta(
 			[[
         $$
-        <>
+          <>
         $$
       ]],
 			{ i(1) }
@@ -57,4 +57,7 @@ return {
 
 	-- Math delimiters
 	s({ trig = "md", snippetType = "autosnippet" }, fmta("$<>$", { i(1) }), { condition = in_textzone }),
+
+	-- Bold text
+	s({ trig = "bm", snippetType = "autosnippet" }, fmta("\\textbf{<>}", { i(1) }), { condition = in_textzone }),
 }

@@ -5,8 +5,24 @@ local t = ls.text_node
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
+local MATH_NODES = { inline_formula = true, displayed_equation = true, math_environment = true }
+
 local in_mathzone = function()
-	return vim.fn["vimtex#syntax#in_mathzone"]() == 1
+	if vim.bo.filetype == "tex" then
+		return vim.fn["vimtex#syntax#in_mathzone"]() == 1
+	elseif vim.bo.filetype == "markdown" then
+		local node = vim.treesitter.get_node({ ignore_injections = false })
+		while node do
+			local z = node:type()
+			if MATH_NODES[z] then
+				return true
+			elseif z == "text_mode" then
+				return false
+			end
+			node = node:parent()
+		end
+	end
+	return false
 end
 
 return {
@@ -142,7 +158,7 @@ return {
 		fmta(
 			[[
           \begin{<>matrix}
-          <>
+            <>
           \end{<>matrix}
           ]],
 			{ i(1), i(2), rep(1) }

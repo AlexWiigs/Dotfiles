@@ -18,6 +18,12 @@ vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>")
 vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>")
 vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>")
 
+-- Swap b and B, and e and E
+vim.keymap.set({ "n", "v" }, "b", "B", { noremap = true })
+vim.keymap.set({ "n", "v" }, "B", "b", { noremap = true })
+vim.keymap.set({ "n", "v" }, "e", "E", { noremap = true })
+vim.keymap.set({ "n", "v" }, "E", "e", { noremap = true })
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
