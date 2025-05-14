@@ -70,6 +70,24 @@ return {
 	-- Dots
 	s({ trig = "...", dscr = "dots", snippetType = "autosnippet" }, { t("\\dots") }, { condition = in_mathzone }),
 
+	-- Trigonometric Functions
+	s({ trig = "sin", dscr = "sin", snippetType = "autosnippet" }, { t("\\sin") }, { condition = in_mathzone }),
+	s({ trig = "cos", dscr = "cos", snippetType = "autosnippet" }, { t("\\cos") }, { condition = in_mathzone }),
+	s({ trig = "tan", dscr = "tan", snippetType = "autosnippet" }, { t("\\tan") }, { condition = in_mathzone }),
+
+	s({ trig = "cot", dscr = "cot", snippetType = "autosnippet" }, { t("\\cot") }, { condition = in_mathzone }),
+	s({ trig = "sec", dscr = "sec", snippetType = "autosnippet" }, { t("\\sec") }, { condition = in_mathzone }),
+	s({ trig = "csc", dscr = "csc", snippetType = "autosnippet" }, { t("\\csc") }, { condition = in_mathzone }),
+
+	-- Hyperbolic Functions
+	-- s({ trig = "sinh", dscr = "sinh", snippetType = "autosnippet" }, { t("\\sinh") }, { condition = in_mathzone }),
+	-- s({ trig = "cosh", dscr = "cosh", snippetType = "autosnippet" }, { t("\\cosh") }, { condition = in_mathzone }),
+	-- s({ trig = "tanh", dscr = "tanh", snippetType = "autosnippet" }, { t("\\tanh") }, { condition = in_mathzone }),
+	--
+	-- s({ trig = "coth", dscr = "coth", snippetType = "autosnippet" }, { t("\\coth") }, { condition = in_mathzone }),
+	-- s({ trig = "sech", dscr = "sech", snippetType = "autosnippet" }, { t("\\sech") }, { condition = in_mathzone }),
+	-- s({ trig = "csch", dscr = "csch", snippetType = "autosnippet" }, { t("\\csch") }, { condition = in_mathzone }),
+
 	-- Summations and Products
 	s(
 		{ trig = "sumin", dscr = "Summation with i and n", snippetType = "autosnippet" },
@@ -80,6 +98,12 @@ return {
 	s(
 		{ trig = "sum", dscr = "Summation", snippetType = "autosnippet" },
 		fmta("\\sum_{<>}^{<>}", { i(1), i(2) }),
+		{ condition = in_mathzone }
+	),
+
+	s(
+		{ trig = ";der", dscr = "Derivative", snippetType = "autosnippet" },
+		fmta("\\frac{d}{d <>}", { i(1) }),
 		{ condition = in_mathzone }
 	),
 
@@ -118,6 +142,8 @@ return {
 		{ t("\\log") },
 		{ condition = in_mathzone }
 	),
+
+	s({ trig = "ln", snippetType = "autosnippet" }, { t("\\ln") }, { condition = in_mathzone }),
 
 	s(
 		{ trig = "min", snippetType = "autosnippet" }, -- Table of snippet parameters
@@ -162,6 +188,19 @@ return {
           \end{<>matrix}
           ]],
 			{ i(1), i(2), rep(1) }
+		),
+		{ condition = in_mathzone }
+	),
+
+	s(
+		{ trig = ";align", dscr = "align", snippetType = "autosnippet" },
+		fmta(
+			[[
+          \begin{align}
+            <>
+          \end{align}
+          ]],
+			{ i(1) }
 		),
 		{ condition = in_mathzone }
 	),
