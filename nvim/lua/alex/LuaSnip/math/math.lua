@@ -28,7 +28,8 @@ end
 return {
 
 	----------- MATH MODE -------------
-	s({ trig = "in", snippetType = "autosnippet" }, { t("\\in") }, { condition = in_mathzone }),
+	s({ trig = ";in", snippetType = "autosnippet" }, { t("\\in") }, { condition = in_mathzone }),
+
 	-- Hats
 	s(
 		{ trig = "hat", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
@@ -126,7 +127,7 @@ return {
 	),
 	-- Words
 	s(
-		{ trig = "det", snippetType = "autosnippet" }, -- Table of snippet parameters
+		{ trig = ";det", snippetType = "autosnippet" }, -- Table of snippet parameters
 		{ t("\\text{det}") },
 		{ condition = in_mathzone }
 	),
@@ -138,15 +139,15 @@ return {
 	),
 
 	s(
-		{ trig = "log", snippetType = "autosnippet" }, -- Table of snippet parameters
+		{ trig = ";log", snippetType = "autosnippet" }, -- Table of snippet parameters
 		{ t("\\log") },
 		{ condition = in_mathzone }
 	),
 
-	s({ trig = "ln", snippetType = "autosnippet" }, { t("\\ln") }, { condition = in_mathzone }),
+	s({ trig = ";ln", snippetType = "autosnippet" }, { t("\\ln") }, { condition = in_mathzone }),
 
 	s(
-		{ trig = "min", snippetType = "autosnippet" }, -- Table of snippet parameters
+		{ trig = ";min", snippetType = "autosnippet" }, -- Table of snippet parameters
 		{ t("\\min") },
 		{ condition = in_mathzone }
 	),
@@ -173,7 +174,7 @@ return {
 
 	-- Fractions
 	s(
-		{ trig = "ff", dscr = "Fraction shortcut", snippetType = "autosnippet" },
+		{ trig = ";ff", dscr = "Fraction shortcut", snippetType = "autosnippet" },
 		fmta("\\frac{<>}{<>}", { i(1), i(2) }),
 		{ condition = in_mathzone }
 	),

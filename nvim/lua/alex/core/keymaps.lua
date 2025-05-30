@@ -58,6 +58,8 @@ keymap.set("n", "<leader>dd", "<cmd>Dooing<CR>", { desc = "Split window vertical
 vim.keymap.set("n", "q", "<Nop>", { noremap = true })
 vim.keymap.set("n", "QQ", "qq", { noremap = true })
 
+vim.keymap.set("n", "<leader>lx", "<cmd>Trouble quickfix<CR>", { noremap = true, silent = true })
+
 -- Show node path levels
 vim.keymap.set("n", "<leader>tn", function()
 	local node = vim.treesitter.get_node()

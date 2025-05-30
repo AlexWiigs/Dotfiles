@@ -1,18 +1,21 @@
 return {
 	"williamboman/mason.nvim",
+	version = "1.11.0", -- last version before v2.0 breaking changes
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{
+			"williamboman/mason-lspconfig.nvim",
+			version = "1.32.0", -- last compatible version
+		},
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			version = "*", -- or pin to a known version if needed
+		},
 	},
 	config = function()
-		-- import mason
 		local mason = require("mason")
-
-		-- import mason-lspconfig
 		local mason_lspconfig = require("mason-lspconfig")
 		local mason_tool_installer = require("mason-tool-installer")
 
-		-- enable mason and configure icons
 		mason.setup({
 			ui = {
 				icons = {
@@ -24,7 +27,6 @@ return {
 		})
 
 		mason_lspconfig.setup({
-			-- list of servers for mason to install
 			ensure_installed = {
 				"lua_ls",
 				"pyright",
@@ -41,11 +43,10 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter
-				"stylua", -- lua formatter
-				"isort", -- python formatter
-				"black", -- python formatter
-				-- Mine?
+				"prettier",
+				"stylua",
+				"isort",
+				"black",
 				"latexindent",
 				"sqlfluff",
 			},

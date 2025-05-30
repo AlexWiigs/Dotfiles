@@ -8,6 +8,7 @@ return {
 		vim.g.vimtex_view_method = "skim"
 		vim.g.vimtex_view_general_viewer = "skim"
 		vim.g.vimtex_view_general_options = "--reuse-instance"
+		vim.g.vimtex_complete_enabled = 1
 
 		-- Key mappings
 		local keymap = vim.api.nvim_set_keymap
@@ -18,16 +19,17 @@ return {
 		keymap("n", "<leader>lC", ":VimtexClean<CR>", opts)
 		keymap("n", "<leader>le", ":VimtexErrors<CR>", opts) -- Show errors
 		keymap("n", "<leader>li", ":VimtexInfo<CR>", opts) -- Show VimTeX info
+		keymap("n", "<leader>lx", "<cmd>Trouble quickfix<CR>", { noremap = true, silent = true })
 
 		-- Auto-indentation settings
 		vim.g.vimtex_indent_enabled = 1
 
 		-- Folding settings
-		vim.g.vimtex_fold_enabled = 0
+		vim.g.vimtex_fold_enabled = 1
 		vim.cmd([[
 			setlocal foldmethod=expr
 			setlocal foldexpr=vimtex#fold#level()
-			setlocal foldlevel=3 " Default fold level (adjust as needed)
+			setlocal foldlevel=2 " Default fold level (adjust as needed)
 		]])
 
 		-- Auto-toggle conceal when entering/exiting insert mode
@@ -44,13 +46,13 @@ return {
 		vim.g.vimtex_syntax_conceal = {
 			accents = 0, -- Conceal accents (e.g., \bar)
 			cites = 0, -- Conceal citations
-			fancy = 0, -- Conceal fancy characters (e.g., \ell)
-			greek = 0, -- Conceal Greek letters
+			fancy = 1, -- Conceal fancy characters (e.g., \ell)
+			greek = 1, -- Conceal Greek letters
 			math_bounds = 0, -- Conceal bounds (e.g., \left, \right)
 			math_delimiters = 0, -- Conceal delimiters (e.g., \(, \), \[)
-			math_fracs = 0, -- Conceal fractions (\frac)
-			math_super_sub = 0, -- Conceal superscripts and subscripts
-			math_symbols = 0, -- Conceal symbols (e.g., \times, \cdot)
+			math_fracs = 1, -- Conceal fractions (\frac)
+			math_super_sub = 1, -- Conceal superscripts and subscripts
+			math_symbols = 1, -- Conceal symbols (e.g., \times, \cdot)
 			sections = 0, -- Conceal section commands (e.g., \section)
 			styles = 0, -- Conceal font styles (e.g., \textbf)
 		}

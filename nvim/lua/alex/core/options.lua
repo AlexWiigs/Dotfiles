@@ -70,3 +70,8 @@ vim.api.nvim_create_autocmd("FileType", {
 		end
 	end,
 })
+
+-- Vimtex
+
+vim.g.vimtex_quickfix_mode = 0
+vim.keymap.set("n", "<leader>lx", "<cmd>Trouble quickfix<CR>", { silent = true })
