@@ -4,4 +4,5 @@ return {
 	require("alex.plugins.themes.gruvbox-material"),
 	-- require("alex.plugins.themes.catppuccin"),
 	-- require("alex.plugins.themes.vesper"),
+	-- require("alex.plugins.themes.miasma"),
 }

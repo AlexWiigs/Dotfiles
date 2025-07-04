@@ -12,7 +12,7 @@ return {
 
 		-- MATLAB lspconfig
 		lspconfig.matlab_ls.setup({
-			cmd = { "node", vim.fn.expand("~/MATLAB-language-server/out/index.js"), "--stdio" }, -- Expands `~` to the full path
+			cmd = { "node", vim.fn.expand("~/MATLAB-language-server/out/index.js"), "--stdio" },
 			filetypes = { "matlab" },
 			root_dir = function(fname)
 				return vim.fs.dirname(vim.fs.find({ ".git", "Makefile" }, { upward = true })[1])
