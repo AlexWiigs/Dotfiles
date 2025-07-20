@@ -60,4 +60,11 @@ return {
 
 	-- Bold text
 	s({ trig = "bm", snippetType = "autosnippet" }, fmta("\\textbf{<>}", { i(1) }), { condition = in_textzone }),
+
+	-- Add Nomenclature
+	s(
+		{ trig = ";nom", snippetType = "autosnippet" },
+		fmta("\\nomenclature{<>}{<>}", { i(1), i(2) }),
+		{ condition = in_textzone }
+	),
 }

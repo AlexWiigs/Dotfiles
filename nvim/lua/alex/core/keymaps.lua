@@ -55,8 +55,8 @@ vim.keymap.set("n", "<leader>i", "<cmd>Oil<cr>", { noremap = true, silent = true
 keymap.set("n", "<leader>dd", "<cmd>Dooing<CR>", { desc = "Split window vertically" }) -- split window vertically
 
 -- remap record so you stop pressing it by accident
-vim.keymap.set("n", "q", "<Nop>", { noremap = true })
-vim.keymap.set("n", "QQ", "qq", { noremap = true })
+-- vim.keymap.set("n", "q", "<Nop>", { noremap = true })
+-- vim.keymap.set("n", "QQ", "qq", { noremap = true })
 
 vim.keymap.set("n", "<leader>lx", "<cmd>Trouble quickfix<CR>", { noremap = true, silent = true })
 
