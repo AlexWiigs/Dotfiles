@@ -86,5 +86,11 @@ return {
     lspconfig.marksman.setup({
       capabilities = capabilities,
     })
+
+    -- MATLAB
+    lspconfig.matlab_ls.setup({
+      cmd = { "node", vim.fn.expand("~/Documents/dev/MATLAB-language-server/out/index.js"), "--stdio" },
+      capabilities = capabilities,
+    })
   end,
 }
