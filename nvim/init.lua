@@ -1,2 +1,3 @@
-require("alex.core")
-require("alex.lazy")
+require("settings")
+require("lazy_setup")
+require("current-theme")
