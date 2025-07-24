@@ -6,17 +6,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	---@module 'render-markdown'
-	-- ft = { "markdown", "norg", "rmd", "org" },
-	init = function()
-		-- Define colors
-		local color1_bg = "#ff757f"
-		local color2_bg = "#4fd6be"
-		local color3_bg = "#7dcfff"
-		local color4_bg = "#ff9e64"
-		local color5_bg = "#7aa2f7"
-		local color6_bg = "#c0caf5"
-		local color_fg = "#1F2335"
-	end,
 	opts = {
 		heading = {
 			sign = false,
@@ -38,6 +27,26 @@ return {
 				"Headline6Fg",
 			},
 		},
+
+   latex = {
+        -- Turn on / off latex rendering.
+        enabled = true,
+        -- Additional modes to render latex.
+        render_modes = false,
+        -- Executable used to convert latex formula to rendered unicode.
+        converter = 'latex2text',
+        -- Highlight for latex blocks.
+        highlight = 'RenderMarkdownMath',
+        -- Determines where latex formula is rendered relative to block.
+        -- | above | above latex block |
+        -- | below | below latex block |
+        position = 'above',
+        -- Number of empty lines above latex blocks.
+        top_pad = 0,
+        -- Number of empty lines below latex blocks.
+        bottom_pad = 0,
+    },
+
 		code = {
 			sign = false,
 			width = "block",

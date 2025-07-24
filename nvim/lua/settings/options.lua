@@ -23,7 +23,7 @@ vim.opt.smartcase = true
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.opt.scrolloff = 8 -- Change this for typwriter in original.
+-- vim.opt.scrolloff = 8 -- Change this for typwriter in original.
 vim.opt.signcolumn = "yes"
 
 vim.opt.backspace = {"start", "eol", "indent" }

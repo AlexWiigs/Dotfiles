@@ -36,7 +36,6 @@ return {
             -- servers for mason to install
             ensure_installed = {
                 "lua_ls",
-                -- "ts_ls", currently using a ts plugin
                 "pyright",
                 "r_language_server",
                 "texlab",
@@ -45,7 +44,6 @@ return {
                 "cssls",
                 "emmet_ls",
                 "emmet_language_server",
-                -- "eslint",
                 "marksman",
             },
 
@@ -58,7 +56,6 @@ return {
                 "isort",    -- python formatter
                 "black",
                 "pylint",
-                -- { 'eslint_d', version = '13.1.2' },
             },
 
             -- NOTE: mason BREAKING Change! Removed setup_handlers
