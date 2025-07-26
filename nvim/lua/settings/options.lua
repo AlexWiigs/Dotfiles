@@ -1,6 +1,11 @@
 vim.cmd("let g:netrw_banner = 0")
 
-vim.opt.guicursor = ""
+vim.opt.guicursor = {
+  "n-v-c:blinkon500-blinkoff500-block", -- blinking block in normal/visual/command
+  "i-ci:blinkon0-block",                -- solid block in insert/command-insert
+  "r-cr:hor20",                         -- horizontal bar in replace modes
+}
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -23,7 +28,6 @@ vim.opt.smartcase = true
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
--- vim.opt.scrolloff = 8 -- Change this for typwriter in original.
 vim.opt.signcolumn = "yes"
 
 vim.opt.backspace = {"start", "eol", "indent" }
@@ -34,12 +38,10 @@ vim.opt.splitbelow = true
 -- Personal preference (might beed to change)
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.hlsearch = true
 
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
-
-

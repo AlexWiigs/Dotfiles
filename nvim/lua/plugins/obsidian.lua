@@ -21,7 +21,7 @@ return {
       },
     },
     daily_notes = {
-      folder = "journal",
+      folder = "journal/daily",
       date_format = "%Y-%m-%d",
       alias_format = "%B %-d, %Y",
       template = nil,
