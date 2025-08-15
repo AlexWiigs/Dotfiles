@@ -62,4 +62,5 @@ return {
 
 	-- text modifiers
 	s({ trig = "bm", snippetType = "autosnippet" }, fmta("**<>**", { i(1) }), { condition = in_textzone }),
+	s({ trig = ";t", snippetType = "autosnippet" }, fmta("- [ ] <>", { i(1) }), { condition = in_textzone }),
 }

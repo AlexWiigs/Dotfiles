@@ -25,7 +25,7 @@ return {
           "r",
           "bash",
           "query", -- for Treesitter queries (used internally)
-          "json",  -- useful for config files
+          "json", -- useful for config files
         },
         incremental_selection = {
           enable = true,

@@ -48,6 +48,41 @@ return {
         enabled = true,
       },
 
+      -- My link additions to default config
+      link = {
+        -- Turn on / off inline link icon rendering.
+        enabled = true,
+        -- Additional modes to render links.
+        render_modes = false,
+        -- How to handle footnote links, start with a '^'.
+        footnote = {
+          -- Turn on / off footnote rendering.
+          enabled = true,
+          -- Replace value with superscript equivalent.
+          superscript = true,
+          -- Added before link content.
+          prefix = '',
+          -- Added after link content.
+          suffix = '',
+        },
+        -- Inlined with 'image' elements.
+        image = '󰥶 ',
+        -- Inlined with 'email_autolink' elements.
+        email = '󰀓 ',
+        -- Fallback icon for 'inline_link' and 'uri_autolink' elements.
+        hyperlink = '󰌹 ',
+        -- Applies to the inlined icon as a fallback.
+        highlight = 'RenderMarkdownLink',
+        -- Applies to WikiLink elements.
+        wiki = {
+          icon = '',
+          body = function()
+            return nil
+          end,
+          highlight = 'RenderMarkdownWikiLink',
+        },
+      },
+
       checkbox = {
         enabled = true,
         render_modes = false,
@@ -86,11 +121,6 @@ return {
         },
 
       },
-    })
-
-    -- Define highlight for cancelled tasks
-    vim.api.nvim_set_hl(0, "RenderMarkdownStrike", {
-      strikethrough = true,
     })
   end,
 }
