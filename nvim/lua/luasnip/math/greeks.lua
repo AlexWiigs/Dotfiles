@@ -2,24 +2,23 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 
-local MATH_NODES = { inline_formula = true, displayed_equation = true, math_environment = true }
+-- Tree-sitter math nodes for LaTeX injections
+local MATH_NODES = {
+  inline_math = true, inline_formula = true, -- TeX
+  displayed_equation = true, math_environment = true, -- TeX
+  math_inline = true, math_block = true, -- Markdown
+}
 
 local in_mathzone = function()
-	if vim.bo.filetype == "tex" then
-		return vim.fn["vimtex#syntax#in_mathzone"]() == 1
-	elseif vim.bo.filetype == "markdown" then
-		local node = vim.treesitter.get_node({ ignore_injections = false })
-		while node do
-			local z = node:type()
-			if MATH_NODES[z] then
-				return true
-			elseif z == "text_mode" then
-				return false
-			end
-			node = node:parent()
-		end
-	end
-	return false
+  if not vim.tbl_contains({ "tex", "markdown", "quarto" }, vim.bo.filetype) then return false end
+  local n = vim.treesitter.get_node({ ignore_injections = false })
+  while n do
+    local t = n:type()
+    if t == "text_mode" then return false end
+    if MATH_NODES[t] then return true end
+    n = n:parent()
+  end
+  return false
 end
 
 -- Add Greek letter snippets

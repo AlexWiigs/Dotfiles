@@ -11,6 +11,7 @@ return {
       treesitter.setup({ -- enable syntax highlighting
         highlight = {
           enable = true,
+          disable = { "latex" }, -- disable TS highlight in LaTeX only
         },
         -- enable indentation
         indent = { enable = true },
