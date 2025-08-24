@@ -5,6 +5,7 @@ local t = ls.text_node
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
+
 -- Tree-sitter math nodes for LaTeX injections
 local MATH_NODES = {
   inline_math = true, inline_formula = true, -- TeX
