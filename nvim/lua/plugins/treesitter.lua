@@ -11,7 +11,7 @@ return {
       treesitter.setup({ -- enable syntax highlighting
         highlight = {
           enable = true,
-          -- disable = { "latex" }, -- disable TS highlight in LaTeX only
+          disable = { "latex" }, -- disable TS highlight in LaTeX only
         },
         -- enable indentation
         indent = { enable = true },
@@ -26,7 +26,8 @@ return {
           "r",
           "bash",
           "query", -- for Treesitter queries (used internally)
-          "json", -- useful for config files
+          "json",  -- useful for config files
+          "typst",
         },
         incremental_selection = {
           enable = true,

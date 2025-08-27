@@ -1,165 +1,325 @@
 return {
   "hrsh7th/nvim-cmp",
-  version = false, -- track latest (fixes old client.request arg order)
+  -- event = "InsertEnter",
+  branch = "main",            -- fix for deprecated functions coming in nvim 0.13
   dependencies = {
-    { "hrsh7th/cmp-nvim-lsp", version = false }, -- LSP source (latest)
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-buffer",     -- source for text in buffer
+    "hrsh7th/cmp-path",       -- source for file system paths
     "hrsh7th/cmp-cmdline",
     {
       "L3MON4D3/LuaSnip",
-      version = "v2.*",
+      -- follow latest release.
+      version = "v2.*",       -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+      -- install jsregexp (optional!).
       build = "make install_jsregexp",
     },
-    "saadparwaiz1/cmp_luasnip",
-    "rafamadriz/friendly-snippets",
+    "saadparwaiz1/cmp_luasnip",         -- autocompletion
+    "rafamadriz/friendly-snippets",     -- snippets
     "nvim-treesitter/nvim-treesitter",
-    "onsails/lspkind.nvim",
+    "onsails/lspkind.nvim",             -- vs-code pictograms
   },
   config = function()
     local cmp = require("cmp")
-    local has_luasnip, luasnip = pcall(require, "luasnip")
-    local lspkind = require("lspkind")
 
-    -- ":" cmdline completion
+    --  Add this for `:` completion
     cmp.setup.cmdline(":", {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = { { name = "path" }, { name = "cmdline" } },
+      sources = {
+        { name = "path" },
+        { name = "cmdline" },
+      },
+    })
+    -- local luasnip = require("luasnip")
+    local has_luasnip, luasnip = pcall(require, 'luasnip')
+
+    require("luasnip").config.set_config({
+      enable_autosnippets = true,
+      store_selection_keys = "<Tab>",
     })
 
-    -- LuaSnip
-    if has_luasnip then
-      luasnip.config.set_config({ enable_autosnippets = true, store_selection_keys = "<Tab>" })
-      require("luasnip.loaders.from_vscode").lazy_load()
-      require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/nvim/lua/luasnip/" })
+    local lspkind = require("lspkind")
+
+    local rhs = function(keys)
+      return vim.api.nvim_replace_termcodes(keys, true, true, true)
     end
 
-    -- helpers
-    local rhs = function(keys) return vim.api.nvim_replace_termcodes(keys, true, true, true) end
-    local column = function() local _, c = unpack(vim.api.nvim_win_get_cursor(0)); return c end
+    local lsp_kinds = {
+      Class = ' ',
+      Color = ' ',
+      Constant = ' ',
+      Constructor = ' ',
+      Enum = ' ',
+      EnumMember = ' ',
+      Event = ' ',
+      Field = ' ',
+      File = ' ',
+      Folder = ' ',
+      Function = ' ',
+      Interface = ' ',
+      Keyword = ' ',
+      Method = ' ',
+      Module = ' ',
+      Operator = ' ',
+      Property = ' ',
+      Reference = ' ',
+      Snippet = ' ',
+      Struct = ' ',
+      Text = ' ',
+      TypeParameter = ' ',
+      Unit = ' ',
+      Value = ' ',
+      Variable = ' ',
+    }
+    -- Returns the current column number.
+    local column = function()
+      local _line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col
+    end
+
+    -- luasnip custom function
     local in_snippet = function()
-      if not has_luasnip then return false end
-      local node = require("luasnip.session").current_nodes[vim.api.nvim_get_current_buf()]
-      if not node then return false end
-      local s = node.parent.snippet
-      local b, e = s.mark:pos_begin_end()
+      local session = require('luasnip.session')
+      local node = session.current_nodes[vim.api.nvim_get_current_buf()]
+      if not node then
+        return false
+      end
+      local snippet = node.parent.snippet
+      local snip_begin_pos, snip_end_pos = snippet.mark:pos_begin_end()
       local pos = vim.api.nvim_win_get_cursor(0)
-      return pos[1]-1 >= b[1] and pos[1]-1 <= e[1]
+      if pos[1] - 1 >= snip_begin_pos[1] and pos[1] - 1 <= snip_end_pos[1] then
+        return true
+      end
     end
-    local in_leading_indent = function()
-      local col = column(); local pre = vim.api.nvim_get_current_line():sub(1, col)
-      return pre:find("^%s*$")
-    end
+
+    -- returns true if the cursor is in leftmost column or at a whitespace char
     local in_whitespace = function()
-      local col = column(); return col == 0 or vim.api.nvim_get_current_line():sub(col, col):match("%s")
+      local col = column()
+      return col == 0 or vim.api.nvim_get_current_line():sub(col, col):match('%s')
     end
-    local shift_width = function() return (vim.o.softtabstop <= 0) and vim.fn.shiftwidth() or vim.o.softtabstop end
+
+    local in_leading_indent = function()
+      local col = column()
+      local line = vim.api.nvim_get_current_line()
+      local prefix = line:sub(1, col)
+      return prefix:find('^%s*$')
+    end
+
+    -- custom shift width
+    local shift_width = function()
+      if vim.o.softtabstop <= 0 then
+        return vim.fn.shiftwidth()
+      else
+        return vim.o.softtabstop
+      end
+    end
+
+    -- custom smart backspace
     local smart_bs = function(dedent)
-      local keys
+      local keys = nil
       if vim.o.expandtab then
-        keys = rhs(dedent and "<C-D>" or "<BS>")
+        if dedent then
+          keys = rhs('<C-D>')
+        else
+          keys = rhs('<BS>')
+        end
       else
         local col = column()
-        local pre = vim.api.nvim_get_current_line():sub(1, col)
+        local line = vim.api.nvim_get_current_line()
+        local prefix = line:sub(1, col)
         if in_leading_indent() then
-          keys = rhs("<BS>")
+          keys = rhs('<BS>')
         else
-          local prev = pre:sub(#pre, #pre)
-          keys = rhs(prev ~= " " and "<BS>" or "<C-\\><C-o>:set expandtab<CR><BS><C-\\><C-o>:set noexpandtab<CR>")
+          local previous_char = prefix:sub(#prefix, #prefix)
+          if previous_char ~= ' ' then
+            keys = rhs('<BS>')
+          else
+            keys = rhs('<C-\\><C-o>:set expandtab<CR><BS><C-\\><C-o>:set noexpandtab<CR>')
+          end
         end
       end
-      vim.api.nvim_feedkeys(keys, "nt", true)
+      vim.api.nvim_feedkeys(keys, 'nt', true)
     end
-    local smart_tab = function()
-      local keys
+
+    -- custom smart tabs function
+    local smart_tab = function(opts)
+      local keys = nil
       if vim.o.expandtab then
-        keys = "<Tab>"
+        keys = '<Tab>'         -- Neovim will insert spaces.
       else
         local col = column()
-        local pre = vim.api.nvim_get_current_line():sub(1, col)
-        if pre:find("^%s*$") then
-          keys = "<Tab>"
+        local line = vim.api.nvim_get_current_line()
+        local prefix = line:sub(1, col)
+        local in_leading_indent = prefix:find('^%s*$')
+        if in_leading_indent then
+          -- inserts a hard tab.
+          keys = '<Tab>'
         else
           local sw = shift_width()
-          local prev = pre:sub(#pre, #pre)
-          local prevcol = #pre - #prev + 1
-          local curv = vim.fn.virtcol({ vim.fn.line("."), prevcol }) + 1
-          local rem = (curv - 1) % sw
-          keys = (" "):rep(rem == 0 and sw or sw - rem)
+          local previous_char = prefix:sub(#prefix, #prefix)
+          local previous_column = #prefix - #previous_char + 1
+          local current_column = vim.fn.virtcol({ vim.fn.line('.'), previous_column }) + 1
+          local remainder = (current_column - 1) % sw
+          local move = remainder == 0 and sw or sw - remainder
+          keys = (' '):rep(move)
         end
       end
-      vim.api.nvim_feedkeys(rhs(keys), "nt", true)
+
+      vim.api.nvim_feedkeys(rhs(keys), 'nt', true)
     end
-    local select_next_item = function(fb) if cmp.visible() then cmp.select_next_item() else fb() end end
-    local select_prev_item = function(fb) if cmp.visible() then cmp.select_prev_item() else fb() end end
+
+    local select_next_item = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end
+
+    local select_prev_item = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end
+
+    -- NOTE: Until https://github.com/hrsh7th/nvim-cmp/issues/1716
+    -- (cmp.ConfirmBehavior.MatchSuffix) gets implemented, use this local wrapper
+    -- to choose between `cmp.ConfirmBehavior.Insert` and `cmp.ConfirmBehavior.Replace`:
     local confirm = function(entry)
       local behavior = cmp.ConfirmBehavior.Replace
       if entry then
-        local ci = entry.completion_item
-        local new = (ci.textEdit and ci.textEdit.newText) or (type(ci.insertText)=="string" and ci.insertText ~= "" and ci.insertText) or ci.word or ci.label or ""
-        local diff_after = math.max(0, entry.replace_range["end"].character + 1) - entry.context.cursor.col
-        if entry.context.cursor_after_line:sub(1, diff_after) ~= new:sub(-diff_after) then
+        local completion_item = entry.completion_item
+        local newText = ''
+        if completion_item.textEdit then
+          newText = completion_item.textEdit.newText
+        elseif type(completion_item.insertText) == 'string' and completion_item.insertText ~= '' then
+          newText = completion_item.insertText
+        else
+          newText = completion_item.word or completion_item.label or ''
+        end
+
+        -- checks how many characters will be different after the cursor position if we replace?
+        local diff_after = math.max(0, entry.replace_range['end'].character + 1) - entry.context.cursor.col
+
+        -- does the text that will be replaced after the cursor match the suffix
+        -- of the `newText` to be inserted ? if not, then `Insert` instead.
+        if entry.context.cursor_after_line:sub(1, diff_after) ~= newText:sub(-diff_after) then
           behavior = cmp.ConfirmBehavior.Insert
         end
       end
       cmp.confirm({ select = true, behavior = behavior })
     end
 
-    local lsp_kinds = {
-      Class=' ', Color=' ', Constant=' ', Constructor=' ', Enum=' ', EnumMember=' ',
-      Event=' ', Field=' ', File=' ', Folder=' ', Function=' ', Interface=' ',
-      Keyword=' ', Method=' ', Module=' ', Operator=' ', Property=' ',
-      Reference=' ', Snippet=' ', Struct=' ', Text=' ', TypeParameter=' ',
-      Unit=' ', Value=' ', Variable=' ',
-    }
+
+    -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+    require("luasnip.loaders.from_vscode").lazy_load()
+    -- loads my luasnips
+    require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/nvim/lua/luasnip/" })
 
     cmp.setup({
-      experimental = { ghost_text = false },
-      completion = { completeopt = "menu,menuone,noinsert" },
+      experimental = {
+        -- HACK: experimenting with ghost text
+        -- look at `toggle_ghost_text()` function below.
+        ghost_text = false,
+      },
+      completion = {
+        completeopt = "menu,menuone,noinsert",
+      },
       window = {
-        documentation = { border = { '╭','─','╮','│','╯','─','╰','│' } },
-        completion    = { border = { '┌','─','┐','│','┘','─','└','│' } },
+        documentation = {
+          border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+        },
+        completion = {
+          border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
+        }
+
       },
+      -- config nvim cmp to work with snippet engine
       snippet = {
-        expand = function(args) if has_luasnip then luasnip.lsp_expand(args.body) end end,
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
       },
+      -- autocompletion sources
       sources = cmp.config.sources({
-        { name = "nvim_lsp" }, -- restored LSP source
-        { name = "luasnip" },
+        { name = "luasnip" },         -- snippets
         { name = "lazydev" },
-        { name = "buffer" },
-        { name = "path" },
+        -- { name = "nvim_lsp" },
+        -- { name = "buffer" },         -- text within current buffer
+        { name = "path" },           -- file system paths
       }),
+      -- mapping = cmp.mapping.preset.insert({
+      --     ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+      --     ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+      --     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+      --     ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      --     ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+      --     ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+      --     ["<CR>"] = cmp.mapping.confirm({ select = false }),
+      -- }),
+
+      -- NOTE: ! Experimenting with Customized Mappings ! --
       mapping = cmp.mapping.preset.insert({
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<C-d>"] = cmp.mapping(function() cmp.close_docs() end, { "i","s" }),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-j>"] = cmp.mapping(select_next_item),
-        ["<C-k>"] = cmp.mapping(select_prev_item),
-        ["<C-n>"] = cmp.mapping(select_next_item),
-        ["<C-p>"] = cmp.mapping(select_prev_item),
-        ["<Down>"] = cmp.mapping(select_next_item),
-        ["<Up>"]   = cmp.mapping(select_prev_item),
-        ["<C-y>"] = cmp.mapping(function(fb) if cmp.visible() then confirm(cmp.get_selected_entry()) else fb() end end, { "i","s" }),
-        ["<CR>"]  = cmp.mapping(function(fb) if cmp.visible() then confirm(cmp.get_selected_entry()) else fb() end end, { "i","s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fb)
+        -- ['<BS>'] = cmp.mapping(function(_fallback)
+        --     smart_bs()
+        -- end, { 'i', 's' }),
+
+        ["<C-e>"] = cmp.mapping.abort(),         -- close completion window
+        ['<C-d>'] = cmp.mapping(function()
+          cmp.close_docs()
+        end, { 'i', 's' }),
+
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-j>'] = cmp.mapping(select_next_item),
+        ['<C-k>'] = cmp.mapping(select_prev_item),
+        ['<C-n>'] = cmp.mapping(select_next_item),
+        ['<C-p>'] = cmp.mapping(select_prev_item),
+        ['<Down>'] = cmp.mapping(select_next_item),
+        ['<Up>'] = cmp.mapping(select_prev_item),
+
+        ['<C-y>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            confirm(entry)
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
+
+        ['<CR>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            confirm(entry)
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
+
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
           elseif has_luasnip and in_snippet() and luasnip.jumpable(-1) then
             luasnip.jump(-1)
           elseif in_leading_indent() then
-            smart_bs(true)
+            smart_bs(true)             -- true means to dedent
           elseif in_whitespace() then
             smart_bs()
           else
-            fb()
+            fallback()
           end
-        end, { "i","s" }),
-        ["<Tab>"] = cmp.mapping(function(_)
+        end, { 'i', 's' }),
+
+        ['<Tab>'] = cmp.mapping(function(_fallback)
           if cmp.visible() then
+            -- if there is only one completion candidate then use it.
             local entries = cmp.get_entries()
-            if #entries == 1 then confirm(entries[1]) else cmp.select_next_item() end
+            if #entries == 1 then
+              confirm(entries[1])
+            else
+              cmp.select_next_item()
+            end
           elseif has_luasnip and luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
           elseif in_whitespace() then
@@ -167,30 +327,71 @@ return {
           else
             cmp.complete()
           end
-        end, { "i","s" }),
+        end, { 'i', 's' }),
       }),
+      -- setup lspkind for vscode pictograms in autocompletion dropdown menu
       formatting = {
         format = function(entry, vim_item)
-          vim_item.kind = string.format("%s %s", lsp_kinds[vim_item.kind] or "", vim_item.kind)
-          vim_item.menu = ({ buffer="[Buffer]", luasnip="[LuaSnip]", nvim_lua="[Lua]", path="[Path]", nvim_lsp="[LSP]" })[entry.source.name]
-          return lspkind.cmp_format({ maxwidth = 25, ellipsis_char = "..." })(entry, vim_item)
+          -- Add custom lsp_kinds icons
+          vim_item.kind = string.format('%s %s', lsp_kinds[vim_item.kind] or '', vim_item.kind)
+
+
+          -- add menu tags (e.g., [Buffer], [LSP])
+          vim_item.menu = ({
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            latex_symbols = "[LaTeX]",
+          })[entry.source.name]
+
+          -- use lspkind and tailwindcss-colorizer-cmp for additional formatting
+          vim_item = lspkind.cmp_format({
+            maxwidth = 25,
+            ellipsis_char = "...",
+          })(entry, vim_item)
+
+
+          return vim_item
         end,
+        -- format = lspkind.cmp_format({
+        --         maxwidth = 30,
+        --         ellipsis_char = "...",
+        --         before = require("tailwindcss-colorizer-cmp").formatter
+        -- }),
+        -- format = require("tailwindcss-colorizer-cmp").formatter
       },
     })
 
-    -- ghost text toggle
-    local config = require("cmp.config")
+    -- NOTE: Added Ghost text stuff
+    -- Only show ghost text at word boundaries, not inside keywords. Based on idea
+    -- from: https://github.com/hrsh7th/nvim-cmp/issues/2035#issuecomment-2347186210
+
+    local config = require('cmp.config')
     local toggle_ghost_text = function()
-      if vim.api.nvim_get_mode().mode ~= "i" then return end
-      local col = vim.fn.col(".")
-      local line = vim.fn.getline(".")
-      local ch = line:sub(col, col)
-      local should = ch == "" or vim.fn.match(ch, [[\k]]) == -1
-      local cur = config.get().experimental.ghost_text
-      if cur ~= should then
-        config.set_global({ experimental = { ghost_text = should } })
+      if vim.api.nvim_get_mode().mode ~= 'i' then
+        return
+      end
+
+      local cursor_column = vim.fn.col('.')
+      local current_line_contents = vim.fn.getline('.')
+      local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
+
+      local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
+
+      local current = config.get().experimental.ghost_text
+      if current ~= should_enable_ghost_text then
+        config.set_global({
+          experimental = {
+            ghost_text = should_enable_ghost_text,
+          },
+        })
       end
     end
-    vim.api.nvim_create_autocmd({ "InsertEnter", "CursorMovedI" }, { callback = toggle_ghost_text })
+
+    vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorMovedI' }, {
+      callback = toggle_ghost_text,
+    })
+    -- ! Ghost text stuff ! --
   end,
 }
