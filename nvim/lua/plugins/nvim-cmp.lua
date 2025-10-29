@@ -243,9 +243,9 @@ return {
       },
       -- autocompletion sources
       sources = cmp.config.sources({
-        { name = "luasnip" },         -- snippets
+        -- { name = "luasnip" },         -- snippets
         { name = "lazydev" },
-        -- { name = "nvim_lsp" },
+        { name = "nvim_lsp" },
         -- { name = "buffer" },         -- text within current buffer
         { name = "path" },           -- file system paths
       }),

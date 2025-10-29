@@ -1,10 +1,18 @@
 vim.cmd("let g:netrw_banner = 0")
 
 vim.opt.guicursor = {
-  "n-v-c:blinkon500-blinkoff500-block", -- blinking block in normal/visual/command
-  "i-ci:blinkon0-block",                -- solid block in insert/command-insert
-  "r-cr:hor20",                         -- horizontal bar in replace modes
+  "n-v-c:block",     -- solid block in normal/visual/command (no blink)
+  "i-ci:ver25",      -- vertical bar (25% width) in insert/command-insert
+  "r-cr:hor20",      -- horizontal bar in replace modes
 }
+-- Enable spell checking
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "tex", "typst", "quarto", "gitcommit", "text" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelloptions = "camel"
+  end,
+})
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -35,7 +43,7 @@ vim.opt.backspace = {"start", "eol", "indent" }
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Personal preference (might beed to change)
+-- Personal preference (might need to change)
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 -- vim.opt.colorcolumn = "80"

@@ -2,7 +2,7 @@
 local set = vim.opt_local
 
 set.textwidth = 80   -- move text to new line at 80 characters
-set.spell = true     -- Enable spell checking
+--set.spell = true     -- Enable spell checking (Set Global in options.lua)
 set.linebreak = true
 
 -- Toggle Line Numbers (Visual Selection)

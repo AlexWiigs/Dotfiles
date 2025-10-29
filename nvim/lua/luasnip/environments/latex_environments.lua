@@ -70,7 +70,7 @@ return {
 	s({ trig = "md", snippetType = "autosnippet" }, fmta("$<>$", { i(1) }), { condition = in_textzone }),
 
   -- Text autosnippets
-	s({ trig = "bm", snippetType = "autosnippet" }, fmta("\\textbf{<>}", { i(1) }), { condition = in_textzone }),
+	-- s({ trig = "bm", snippetType = "autosnippet" }, fmta("\\textbf{<>}", { i(1) }), { condition = in_textzone }),
 
 	-- Add Nomenclature
 	s(

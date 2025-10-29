@@ -14,7 +14,7 @@ return {
   end,
   keys = {
     {
-      '<leader>tc',
+      '<leader>cc',
       function()
         local file = vim.api.nvim_buf_get_name(0)
         if file == '' or not file:match('%.typ$') then
@@ -23,14 +23,14 @@ return {
         end
 
         -- Mirror PDFs under ~/notes/typst/** when source is under ~/Documents/Projects/typst/**
-        local src_root = vim.fn.expand('~/Documents/Projects/typst/')  -- with trailing slash
-        local dst_root = vim.fn.expand('~/notes/typst/')               -- with trailing slash
+        local src_root = vim.fn.expand('~/Documents/Projects/typst/') -- with trailing slash
+        local dst_root = vim.fn.expand('~/notes/typst/')              -- with trailing slash
         local pdf
 
         if file:sub(1, #src_root) == src_root then
-          local rel = file:sub(#src_root + 1)                 -- path relative to src_root
-          pdf = dst_root .. rel:gsub('%.typ$', '.pdf')        -- mirror path, swap extension
-          vim.fn.mkdir(vim.fn.fnamemodify(pdf, ':h'), 'p')    -- ensure parent dirs
+          local rel = file:sub(#src_root + 1)              -- path relative to src_root
+          pdf = dst_root .. rel:gsub('%.typ$', '.pdf')     -- mirror path, swap extension
+          vim.fn.mkdir(vim.fn.fnamemodify(pdf, ':h'), 'p') -- ensure parent dirs
         else
           -- Fallback: write PDF next to the source file
           pdf = file:gsub('%.typ$', '.pdf')
