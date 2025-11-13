@@ -5,6 +5,14 @@ local opts = { noremap = true, silent = true }
 -- A = alt (option)
 -- command is not represented in vim kepmap notation
 
+-- Karabiner setup
+vim.keymap.set("n", "<S-Left>", "/", { noremap = true }) -- Command-a
+vim.keymap.set("n", "<S-Down>", ":", { noremap = true }) -- Command-s
+vim.keymap.set("i", "<S-Left>", "(", { noremap = true })
+vim.keymap.set("i", "<S-Down>", "{", { noremap = true })
+vim.keymap.set("n", "<M-Up>", "?", { noremap = true }) -- Command-q
+vim.keymap.set("n", "<S-Down>", ":", { noremap = true }) -- Command-w
+
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

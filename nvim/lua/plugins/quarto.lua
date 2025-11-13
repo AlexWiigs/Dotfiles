@@ -9,7 +9,7 @@ return {
   config = function()
     require("quarto").setup({
       lspFeatures = {
-        languages = { "python", "r", "lua", "bash" },
+        languages = { "python", "r", "lua", "bash", "matlab=octave" },
         chunks = "all",
         diagnostics = {
           enabled = true,

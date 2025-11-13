@@ -11,22 +11,20 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-
-    note_id_func = function(title)
-      return title
-    end,
+    new_notes_location = "notes_subdir",
+    notes_subdir = "notes",
 
     ui = { enable = false },
     -- preferred_link_style = "markdown", -- wiki or markdown
 
     workspaces = {
       {
-        name = "notes",
-        path = "~/notes",
+        name = "journal",
+        path = "~/Documents/github.com/journal/",
       },
     },
     daily_notes = {
-      folder = "journal/daily",
+      folder = "calendar/daily",
       date_format = "%Y-%m-%d",
       alias_format = "%B %-d, %Y",
       template = nil,

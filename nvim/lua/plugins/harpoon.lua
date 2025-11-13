@@ -26,16 +26,16 @@ return {
 		end)
 
 		--Harpoon marked files
-		vim.keymap.set("n", "<C-y>", function()
+		vim.keymap.set("n", "<M-f>", function()
 			harpoon:list():select(1)
 		end)
-		vim.keymap.set("n", "<C-i>", function()
+		vim.keymap.set("n", "<M-d>", function()
 			harpoon:list():select(2)
 		end)
-		vim.keymap.set("n", "<C-n>", function()
+		vim.keymap.set("n", "<M-s>", function()
 			harpoon:list():select(3)
 		end)
-		vim.keymap.set("n", "<C-s>", function()
+		vim.keymap.set("n", "<M-a>", function()
 			harpoon:list():select(4)
 		end)
 
