@@ -63,8 +63,8 @@ return {
     -- Keymaps
     ------------------------------------------------------------------------
     -- Send fenced block
-    vim.keymap.set("n", "<leader>rr", send_current_fence, { desc = "Send fenced block to REPL" })
-    vim.keymap.set("v", "<leader>rr", function()
+    vim.keymap.set("n", "<M-c>", send_current_fence, { desc = "Send fenced block to REPL" })
+    vim.keymap.set("v", "<M-c>", function()
       vim.api.nvim_feedkeys(
         vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
         "nx",

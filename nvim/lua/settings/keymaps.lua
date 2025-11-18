@@ -7,11 +7,26 @@ local opts = { noremap = true, silent = true }
 
 -- Karabiner setup
 vim.keymap.set("n", "<S-Left>", "/", { noremap = true }) -- Command-a
-vim.keymap.set("n", "<S-Down>", ":", { noremap = true }) -- Command-s
+vim.keymap.set("n", "<M-Down>", ":", { noremap = true }) -- Command-s
 vim.keymap.set("i", "<S-Left>", "(", { noremap = true })
 vim.keymap.set("i", "<S-Down>", "{", { noremap = true })
 vim.keymap.set("n", "<M-Up>", "?", { noremap = true }) -- Command-q
 vim.keymap.set("n", "<S-Down>", ":", { noremap = true }) -- Command-w
+
+-- Terminal keybinds
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.wo.scrolloff = 999
+  end,
+})
+
+-- Disable built-in motions and use leaps instead
+vim.keymap.set({ 'n', 'x', 'o' }, 'f', '<Nop>')
+vim.keymap.set({ 'n', 'x', 'o' }, 'F', '<Nop>')
+vim.keymap.set({ 'n', 'x', 'o' }, 't', '<Nop>')
+vim.keymap.set({ 'n', 'x', 'o' }, 'T', '<Nop>')
+
 
 
 vim.g.mapleader = " "

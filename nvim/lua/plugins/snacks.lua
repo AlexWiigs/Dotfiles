@@ -153,19 +153,28 @@ return {
 				},
 			},
 
-			dashboard = {
-			},
+			dashboard = {},
 		},
 
 		-- NOTE: Keymaps
 		keys = {
+
 			{
-				"<leader>lg",
+				"<C-r>",
 				function()
 					require("snacks").lazygit()
 				end,
 				desc = "Lazygit",
 			},
+
+      {
+        "<C-t>",
+        function()
+          require("snacks").lazygit.log_file()
+        end,
+        desc = "Lazygit (prompt for repo path)",
+      },
+
 			{
 				"<leader>gl",
 				function()
@@ -190,28 +199,28 @@ return {
 
 			-- Snacks Picker
 			{
-				"<leader>pf",
+				"<leader>ff",
 				function()
 					require("snacks").picker.files()
 				end,
 				desc = "Find Files (Snacks Picker)",
 			},
 			{
-				"<leader>pc",
+				"<leader>fc",
 				function()
 					require("snacks").picker.files({ cwd = vim.fn.stdpath("config") })
 				end,
 				desc = "Find Config File",
 			},
 			{
-				"<leader>ps",
+				"<leader>fs",
 				function()
 					require("snacks").picker.grep()
 				end,
 				desc = "Grep word",
 			},
 			{
-				"<leader>pws",
+				"<leader>fws",
 				function()
 					require("snacks").picker.grep_word()
 				end,
@@ -219,7 +228,7 @@ return {
 				mode = { "n", "x" },
 			},
 			{
-				"<leader>pk",
+				"<leader>fk",
 				function()
 					require("snacks").picker.keymaps({ layout = "ivy" })
 				end,

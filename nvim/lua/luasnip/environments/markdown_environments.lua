@@ -44,6 +44,20 @@ return {
 		{ condition = in_textzone }
 	),
 
+  s(
+		{ trig = ";c", dscr = "Expands ';c' into python code block", snippetType = "autosnippet" },
+		fmta(
+			[[
+       ```{python}
+       <>
+       ```
+     ]],
+			{ i(1) }
+		),
+		{ condition = in_textzone }
+	),
+
+
 	-- Math delimiters
 	s({ trig = "md", snippetType = "autosnippet" }, fmta("$<>$", { i(1) }), { condition = in_textzone }),
 
