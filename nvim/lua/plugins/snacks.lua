@@ -113,8 +113,8 @@ return {
 				doc = {
 					float = true, -- show image on cursor hover
 					inline = false, -- show image inline
-					max_width = 50,
-					max_height = 30,
+					max_width = 100,
+					max_height = 60,
 					wo = {
 						wrap = false,
 					},

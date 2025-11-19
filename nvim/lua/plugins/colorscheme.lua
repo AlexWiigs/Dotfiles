@@ -110,6 +110,10 @@ return {
 						PmenuSbar = { bg = theme.ui.bg_m1 },
 						PmenuThumb = { bg = theme.ui.bg_p2 },
 
+            -- Transparent lualine
+            StatusLine = { bg = "none" },
+            StatusLineNC = { bg = "none" },
+
 						-- Save an hlgroup with dark background and dimmed foreground
 						-- so that you can use it where your still want darker windows.
 						-- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
